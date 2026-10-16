@@ -1,0 +1,22 @@
+name: Daily vocabulary
+
+on:
+  schedule:
+    # 01:00 UTC = 08:00 giờ Việt Nam (GitHub có thể trễ vài phút)
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          WORDS_PER_DAY: ${{ vars.WORDS_PER_DAY || '5' }}
+        run: python scripts/send_daily.py

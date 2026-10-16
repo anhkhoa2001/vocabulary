@@ -1,0 +1,79 @@
+{
+  "book": "Oracle Essentials, 4th Edition",
+  "words": [
+    {
+      "word": "comprehend",
+      "pos": "v",
+      "ipa": "/ˌkɒmprɪˈhend/",
+      "meaning": "hiểu thấu, lĩnh hội",
+      "example": "It takes time to comprehend how Oracle manages memory.",
+      "example_vi": "Cần thời gian để hiểu thấu cách Oracle quản lý bộ nhớ.",
+      "source": "Chapter 1",
+      "added": "2026-10-16",
+      "family": [
+        { "word": "comprehension", "pos": "n", "ipa": "/ˌkɒmprɪˈhenʃn/", "meaning": "sự hiểu", "example": "Reading comprehension improves with practice." },
+        { "word": "comprehensible", "pos": "adj", "ipa": "/ˌkɒmprɪˈhensəbl/", "meaning": "dễ hiểu", "example": "The error message is not very comprehensible." },
+        { "word": "incomprehensible", "pos": "adj", "ipa": "/ɪnˌkɒmprɪˈhensəbl/", "meaning": "không thể hiểu nổi" },
+        { "word": "comprehensive", "pos": "adj", "ipa": "/ˌkɒmprɪˈhensɪv/", "meaning": "toàn diện, đầy đủ", "example": "Oracle provides comprehensive documentation.", "note": "KHÔNG có nghĩa \"dễ hiểu\" (dễ hiểu là comprehensible)." }
+      ]
+    },
+    {
+      "word": "massive",
+      "pos": "adj",
+      "ipa": "/ˈmæsɪv/",
+      "meaning": "đồ sộ, khổng lồ",
+      "example": "The company stores a massive amount of data.",
+      "example_vi": "Công ty lưu một lượng dữ liệu khổng lồ.",
+      "source": "Chapter 1",
+      "added": "2026-10-16",
+      "family": [
+        { "word": "mass", "pos": "n", "ipa": "/mæs/", "meaning": "khối, số lượng lớn", "example": "a mass of data" },
+        { "word": "massively", "pos": "adv", "ipa": "/ˈmæsɪvli/", "meaning": "cực kỳ, ở quy mô lớn", "example": "massively parallel processing (MPP)" }
+      ]
+    },
+    {
+      "word": "get a sense of",
+      "pos": "phrase",
+      "ipa": "/ɡet ə sens əv/",
+      "meaning": "nắm được, hình dung được",
+      "example": "This chapter gives you a good sense of the Oracle architecture.",
+      "example_vi": "Chương này giúp bạn hình dung rõ kiến trúc Oracle.",
+      "source": "Chapter 1",
+      "added": "2026-10-16",
+      "family": [
+        { "word": "sense", "pos": "n, v", "ipa": "/sens/", "meaning": "cảm giác, ý thức; cảm nhận" },
+        { "word": "sensible", "pos": "adj", "ipa": "/ˈsensəbl/", "meaning": "hợp lý", "example": "a sensible default value" },
+        { "word": "sensitive", "pos": "adj", "ipa": "/ˈsensətɪv/", "meaning": "nhạy cảm", "example": "Passwords are case-sensitive.", "note": "Dễ nhầm với sensible (hợp lý)." }
+      ]
+    },
+    {
+      "word": "get lost in",
+      "pos": "phrase",
+      "ipa": "/ɡet lɒst ɪn/",
+      "meaning": "bị lạc, bị sa đà vào",
+      "example": "Beginners often get lost in the details of SQL tuning.",
+      "example_vi": "Người mới thường bị sa đà vào chi tiết tối ưu SQL.",
+      "source": "Chapter 1",
+      "added": "2026-10-16",
+      "family": [
+        { "word": "lose", "pos": "v", "ipa": "/luːz/", "meaning": "mất, đánh mất (lose, lost, lost)" },
+        { "word": "loss", "pos": "n", "ipa": "/lɒs/", "meaning": "sự mất mát", "example": "Backups protect against data loss." },
+        { "word": "lost", "pos": "adj", "ipa": "/lɒst/", "meaning": "bị mất, bị lạc", "example": "lost transactions" }
+      ]
+    },
+    {
+      "word": "detail",
+      "pos": "n, v",
+      "ipa": "/ˈdiːteɪl/",
+      "meaning": "chi tiết; trình bày chi tiết",
+      "example": "The documentation explains every detail of the backup process.",
+      "example_vi": "Tài liệu giải thích mọi chi tiết của quy trình sao lưu.",
+      "source": "Chapter 1",
+      "added": "2026-10-16",
+      "family": [
+        { "word": "detailed", "pos": "adj", "ipa": "/ˈdiːteɪld/", "meaning": "chi tiết, tỉ mỉ", "example": "a detailed execution plan" },
+        { "word": "in detail", "pos": "phrase", "meaning": "một cách chi tiết", "example": "Chapter 2 covers this in detail." }
+      ]
+    }
+  ]
+}
