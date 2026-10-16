@@ -42,7 +42,8 @@ export default {
     if (!total) return;
     await send(env, env.ALLOWED_CHAT_ID,
       `📚 Hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\n` +
-      `Gõ /learn để bắt đầu.`);
+      `Gõ /learn để bắt đầu.`,
+      [["▶️ Học ngay", "/learn"], ["⏭ Bỏ qua hôm nay", "/skipday"]]);
   },
 };
 
@@ -55,7 +56,7 @@ async function setup(url, env) {
   const res = await tg(env, "setWebhook", {
     url: `${url.origin}/webhook`,
     secret_token: env.WEBHOOK_SECRET,
-    allowed_updates: ["message"],
+    allowed_updates: ["message", "callback_query"],
   });
   await tg(env, "setMyCommands", {
     commands: [
@@ -64,6 +65,8 @@ async function setup(url, env) {
       { command: "skip", description: "Xem đáp án và qua từ tiếp" },
       { command: "today", description: "Danh sách từ hôm nay" },
       { command: "stats", description: "Xem tiến độ học" },
+      { command: "more", description: "Học thêm từ mới (vd: /more 10)" },
+      { command: "skipday", description: "Bỏ qua bài hôm nay" },
       { command: "stop", description: "Tạm dừng phiên học" },
     ],
   });
@@ -299,7 +302,13 @@ export function statsText(words, srs, today) {
 }
 
 export async function handleUpdate(update, env) {
-  const msg = update.message;
+  let msg = update.message;
+  if (update.callback_query) {
+    const q = update.callback_query;
+    await tg(env, "answerCallbackQuery", { callback_query_id: q.id });
+    if (!q.message) return;
+    msg = { chat: q.message.chat, text: q.data };
+  }
   if (!msg || !msg.text) return;
   const chatId = String(msg.chat.id);
   if (env.ALLOWED_CHAT_ID && chatId !== String(env.ALLOWED_CHAT_ID)) {
@@ -315,7 +324,7 @@ export async function handleUpdate(update, env) {
     await send(env, chatId,
       "Chào bạn! Mỗi lượt mình gửi <b>nghĩa tiếng Việt</b>, bạn gõ <b>từ tiếng Anh</b>.\n" +
       "Từ nào bạn hay quên sẽ được nhắc lại dày hơn, từ đã thuộc sẽ giãn dần ra.\n\n" +
-      "/learn bắt đầu học\n/hint gợi ý\n/skip xem đáp án\n/today danh sách từ hôm nay\n/stats tiến độ\n/stop tạm dừng");
+      "/learn bắt đầu học\n/hint gợi ý\n/skip xem đáp án\n/more học thêm từ mới (vd: /more 10)\n/skipday bỏ qua bài hôm nay\n/today danh sách từ hôm nay\n/stats tiến độ\n/stop tạm dừng");
     return;
   }
 
@@ -335,10 +344,63 @@ export async function handleUpdate(update, env) {
     return;
   }
 
-  if (cmd === "/learn") {
+  if (cmd === "/done") {
+    await send(env, chatId, "Hẹn gặp lại bạn ngày mai! 👋");
+    return;
+  }
+
+  if (cmd === "/skipday") {
     if (!s || s.date !== today) s = await newSession(env, chatId, today);
+    const left = s.queue.length;
+    s.queue = [];
+    s.skipped = true;
+    await saveSession(env, chatId, s);
+    await send(env, chatId,
+      left ? `Đã bỏ qua ${left} từ hôm nay. Từ đến hạn ôn sẽ dời sang mai, từ mới vẫn giữ nguyên chưa học.`
+           : "Hôm nay không còn từ nào để bỏ qua.",
+      [["▶️ Vẫn muốn học", "/learn"]]);
+    return;
+  }
+
+  if (cmd === "/more") {
+    const n = Math.min(Math.max(parseInt(text.split(/\s+/)[1], 10) || newPerDay(env), 1), 50);
+    if (!s || s.date !== today) s = await newSession(env, chatId, today);
+    const words = await loadWords(env);
+    const srs = await getSrs(env, chatId);
+    const inSession = new Set([...s.queue.map((w) => w.word), ...s.graded]);
+    let extra = words.filter((w) => !srs[w.word] && !inSession.has(w.word)).slice(0, n);
+    let label = "từ mới";
+    if (!extra.length) {
+      // No new words left: review the words whose next review is closest.
+      extra = words
+        .filter((w) => srs[w.word] && !inSession.has(w.word))
+        .sort((a, b) => srs[a.word].due.localeCompare(srs[b.word].due))
+        .slice(0, n);
+      label = "từ ôn sớm (kho đã hết từ mới)";
+    }
+    if (!extra.length) {
+      await send(env, chatId, "Kho từ đã hết, bạn đã học tất cả rồi. 🎉");
+      return;
+    }
+    const wasIdle = !s.queue.length;
+    s.queue.push(...extra);
+    s.total += extra.length;
+    s.newCount += extra.length;
+    s.skipped = false;
+    await saveSession(env, chatId, s);
+    let t = `➕ Đã thêm ${extra.length} ${label}.`;
+    if (wasIdle) t += `\n\n${promptText(s.queue[0], s.done + 1, s.total)}`;
+    await send(env, chatId, t);
+    return;
+  }
+
+  if (cmd === "/learn") {
+    // A skipped day is rebuilt, so /learn after /skipday brings the words back.
+    if (!s || s.date !== today || s.skipped) s = await newSession(env, chatId, today);
     if (!s.queue.length) {
-      await send(env, chatId, s.total ? "Hôm nay bạn học xong rồi. 🎉 Mai quay lại nhé!" : "Hôm nay không có từ nào đến hạn ôn. 🎉");
+      const t = s.skipped ? "Bạn đã bỏ qua bài hôm nay."
+        : s.total ? "Hôm nay bạn học xong rồi. 🎉" : "Hôm nay không có từ nào đến hạn ôn. 🎉";
+      await send(env, chatId, t, moreButtons(env));
       return;
     }
     await saveSession(env, chatId, s);
@@ -423,8 +485,8 @@ async function next(env, chatId, s) {
   }
   let summary = `🎉 Xong bài hôm nay! Đúng ${s.correct}/${s.done} lượt.`;
   if (s.missed.length) summary += `\nTừ bị quên (sẽ nhắc lại ngày mai): ${s.missed.map((x) => `<b>${esc(x)}</b>`).join(", ")}`;
-  summary += `\nGõ /stats để xem tiến độ.`;
-  await send(env, chatId, summary);
+  summary += `\nGõ /stats để xem tiến độ. Muốn học thêm không?`;
+  await send(env, chatId, summary, moreButtons(env));
 }
 
 // ---------- telegram ----------
@@ -438,6 +500,14 @@ async function tg(env, method, body) {
   return r.json();
 }
 
-function send(env, chatId, text) {
-  return tg(env, "sendMessage", { chat_id: chatId, text, parse_mode: "HTML" });
+function send(env, chatId, text, buttons) {
+  const body = { chat_id: chatId, text, parse_mode: "HTML" };
+  if (buttons) {
+    body.reply_markup = { inline_keyboard: [buttons.map(([label, data]) => ({ text: label, callback_data: data }))] };
+  }
+  return tg(env, "sendMessage", body);
+}
+
+function moreButtons(env) {
+  return [[`➕ Học thêm ${newPerDay(env)} từ`, "/more"], ["✅ Đủ rồi", "/done"]];
 }

@@ -8,7 +8,10 @@ Bot gửi **nghĩa tiếng Việt**, bạn gõ **từ tiếng Anh**, bot chấm 
 - Lịch sử đúng sai của từng từ lưu trong KV. Gõ `/stats` để xem tiến độ và các từ hay quên.
 - Mỗi từ có 3 lần thử: sai lần 1 gợi ý chữ cái đầu và độ dài, sai lần 2 gợi ý câu ví dụ có chỗ trống, sai lần 3 hiện đáp án.
 - Từ bị sai sẽ được hỏi lại một lần ở cuối bài. Gõ sai một chữ cái vẫn tính đúng.
-- Lệnh: `/learn`, `/hint`, `/skip`, `/today`, `/stats`, `/stop`.
+- Học thêm hoặc nghỉ: tin buổi sáng có nút **Học ngay** / **Bỏ qua hôm nay**, cuối bài có nút **Học thêm N từ** / **Đủ rồi**.
+  - `/more` hoặc `/more 10`: thêm từ mới vào bài hôm nay (hết từ mới thì lấy các từ sắp đến hạn ôn).
+  - `/skipday`: bỏ qua bài hôm nay, từ đến hạn dời sang mai. Gõ `/learn` nếu đổi ý.
+- Lệnh: `/learn`, `/hint`, `/skip`, `/more`, `/skipday`, `/today`, `/stats`, `/stop`.
 - Từ vựng đọc trực tiếp từ `data/*.json` trên GitHub, nên thêm từ vào JSON là bot dùng ngay (không cần deploy lại).
 
 ## Deploy lên Cloudflare Workers (miễn phí)
