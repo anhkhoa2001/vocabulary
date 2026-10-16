@@ -342,6 +342,157 @@
           "example": "the impact on response time"
         }
       ]
+    },
+    {
+      "word": "brevity",
+      "pos": "n",
+      "ipa": "/ˈbrevəti/",
+      "meaning": "sự ngắn gọn",
+      "example": "For brevity, the output is truncated.",
+      "example_vi": "Để cho gọn, kết quả đầu ra bị cắt bớt.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "brief",
+          "pos": "adj",
+          "ipa": "/briːf/",
+          "meaning": "ngắn gọn",
+          "example": "a brief overview"
+        },
+        {
+          "word": "briefly",
+          "pos": "adv",
+          "ipa": "/ˈbriːfli/",
+          "meaning": "một cách ngắn gọn",
+          "example": "briefly describe the architecture"
+        },
+        {
+          "word": "brief",
+          "pos": "v",
+          "ipa": "/briːf/",
+          "meaning": "tóm tắt tình hình cho ai",
+          "example": "brief the team on the outage"
+        }
+      ]
+    },
+    {
+      "word": "principle",
+      "pos": "n",
+      "ipa": "/ˈprɪnsəpl/",
+      "meaning": "nguyên lý, nguyên tắc",
+      "example": "We concentrate on principles rather than syntax.",
+      "example_vi": "Chúng tôi tập trung vào nguyên lý thay vì cú pháp.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "in principle",
+          "pos": "phrase",
+          "meaning": "về nguyên tắc",
+          "example": "In principle, the query should be fast."
+        },
+        {
+          "word": "principal",
+          "pos": "adj",
+          "ipa": "/ˈprɪnsəpl/",
+          "meaning": "chính, chủ yếu (đồng âm, khác nghĩa)",
+          "example": "the principal reason"
+        }
+      ]
+    },
+    {
+      "word": "syntax",
+      "pos": "n",
+      "ipa": "/ˈsɪntæks/",
+      "meaning": "cú pháp",
+      "example": "There is a syntax error in the SQL statement.",
+      "example_vi": "Câu lệnh SQL có lỗi cú pháp.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "syntactic",
+          "pos": "adj",
+          "ipa": "/sɪnˈtæktɪk/",
+          "meaning": "thuộc về cú pháp",
+          "example": "a syntactic check"
+        }
+      ]
+    },
+    {
+      "word": "myriad",
+      "pos": "adj, n",
+      "ipa": "/ˈmɪriəd/",
+      "meaning": "vô số, rất nhiều",
+      "example": "There isn't room for myriad syntax diagrams in this book.",
+      "example_vi": "Cuốn sách này không đủ chỗ cho vô số sơ đồ cú pháp.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "a myriad of",
+          "pos": "phrase",
+          "meaning": "vô số (dùng như danh từ)",
+          "example": "a myriad of options"
+        },
+        {
+          "word": "countless",
+          "pos": "adj",
+          "ipa": "/ˈkaʊntləs/",
+          "meaning": "vô số (đồng nghĩa)",
+          "example": "countless rows"
+        }
+      ]
+    },
+    {
+      "word": "room",
+      "pos": "n (uncountable)",
+      "ipa": "/ruːm/",
+      "meaning": "chỗ, khoảng trống (khác 'a room' = căn phòng)",
+      "example": "There isn't room for another disk in this server.",
+      "example_vi": "Máy chủ này không còn chỗ cho thêm ổ đĩa.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "roomy",
+          "pos": "adj",
+          "ipa": "/ˈruːmi/",
+          "meaning": "rộng rãi",
+          "example": "a roomy office"
+        },
+        {
+          "word": "make room for",
+          "pos": "phrase",
+          "meaning": "dọn chỗ cho",
+          "example": "make room for new data files"
+        }
+      ]
+    },
+    {
+      "word": "rather than",
+      "pos": "conj",
+      "ipa": "/ˈrɑːðə ðən/",
+      "meaning": "thay vì, hơn là",
+      "example": "Use bind variables rather than literals.",
+      "example_vi": "Dùng biến ràng buộc thay vì giá trị cố định.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "would rather",
+          "pos": "phrase",
+          "meaning": "thích… hơn",
+          "example": "I would rather use PL/SQL."
+        },
+        {
+          "word": "or rather",
+          "pos": "phrase",
+          "meaning": "nói đúng hơn là",
+          "example": "the table, or rather the view"
+        }
+      ]
     }
   ]
 }
