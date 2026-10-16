@@ -11,10 +11,34 @@
       "source": "Chapter 1",
       "added": "2026-10-16",
       "family": [
-        { "word": "comprehension", "pos": "n", "ipa": "/ˌkɒmprɪˈhenʃn/", "meaning": "sự hiểu", "example": "Reading comprehension improves with practice." },
-        { "word": "comprehensible", "pos": "adj", "ipa": "/ˌkɒmprɪˈhensəbl/", "meaning": "dễ hiểu", "example": "The error message is not very comprehensible." },
-        { "word": "incomprehensible", "pos": "adj", "ipa": "/ɪnˌkɒmprɪˈhensəbl/", "meaning": "không thể hiểu nổi" },
-        { "word": "comprehensive", "pos": "adj", "ipa": "/ˌkɒmprɪˈhensɪv/", "meaning": "toàn diện, đầy đủ", "example": "Oracle provides comprehensive documentation.", "note": "KHÔNG có nghĩa \"dễ hiểu\" (dễ hiểu là comprehensible)." }
+        {
+          "word": "comprehension",
+          "pos": "n",
+          "ipa": "/ˌkɒmprɪˈhenʃn/",
+          "meaning": "sự hiểu",
+          "example": "Reading comprehension improves with practice."
+        },
+        {
+          "word": "comprehensible",
+          "pos": "adj",
+          "ipa": "/ˌkɒmprɪˈhensəbl/",
+          "meaning": "dễ hiểu",
+          "example": "The error message is not very comprehensible."
+        },
+        {
+          "word": "incomprehensible",
+          "pos": "adj",
+          "ipa": "/ɪnˌkɒmprɪˈhensəbl/",
+          "meaning": "không thể hiểu nổi"
+        },
+        {
+          "word": "comprehensive",
+          "pos": "adj",
+          "ipa": "/ˌkɒmprɪˈhensɪv/",
+          "meaning": "toàn diện, đầy đủ",
+          "example": "Oracle provides comprehensive documentation.",
+          "note": "KHÔNG có nghĩa \"dễ hiểu\" (dễ hiểu là comprehensible)."
+        }
       ]
     },
     {
@@ -27,8 +51,20 @@
       "source": "Chapter 1",
       "added": "2026-10-16",
       "family": [
-        { "word": "mass", "pos": "n", "ipa": "/mæs/", "meaning": "khối, số lượng lớn", "example": "a mass of data" },
-        { "word": "massively", "pos": "adv", "ipa": "/ˈmæsɪvli/", "meaning": "cực kỳ, ở quy mô lớn", "example": "massively parallel processing (MPP)" }
+        {
+          "word": "mass",
+          "pos": "n",
+          "ipa": "/mæs/",
+          "meaning": "khối, số lượng lớn",
+          "example": "a mass of data"
+        },
+        {
+          "word": "massively",
+          "pos": "adv",
+          "ipa": "/ˈmæsɪvli/",
+          "meaning": "cực kỳ, ở quy mô lớn",
+          "example": "massively parallel processing (MPP)"
+        }
       ]
     },
     {
@@ -41,9 +77,27 @@
       "source": "Chapter 1",
       "added": "2026-10-16",
       "family": [
-        { "word": "sense", "pos": "n, v", "ipa": "/sens/", "meaning": "cảm giác, ý thức; cảm nhận" },
-        { "word": "sensible", "pos": "adj", "ipa": "/ˈsensəbl/", "meaning": "hợp lý", "example": "a sensible default value" },
-        { "word": "sensitive", "pos": "adj", "ipa": "/ˈsensətɪv/", "meaning": "nhạy cảm", "example": "Passwords are case-sensitive.", "note": "Dễ nhầm với sensible (hợp lý)." }
+        {
+          "word": "sense",
+          "pos": "n, v",
+          "ipa": "/sens/",
+          "meaning": "cảm giác, ý thức; cảm nhận"
+        },
+        {
+          "word": "sensible",
+          "pos": "adj",
+          "ipa": "/ˈsensəbl/",
+          "meaning": "hợp lý",
+          "example": "a sensible default value"
+        },
+        {
+          "word": "sensitive",
+          "pos": "adj",
+          "ipa": "/ˈsensətɪv/",
+          "meaning": "nhạy cảm",
+          "example": "Passwords are case-sensitive.",
+          "note": "Dễ nhầm với sensible (hợp lý)."
+        }
       ]
     },
     {
@@ -56,9 +110,26 @@
       "source": "Chapter 1",
       "added": "2026-10-16",
       "family": [
-        { "word": "lose", "pos": "v", "ipa": "/luːz/", "meaning": "mất, đánh mất (lose, lost, lost)" },
-        { "word": "loss", "pos": "n", "ipa": "/lɒs/", "meaning": "sự mất mát", "example": "Backups protect against data loss." },
-        { "word": "lost", "pos": "adj", "ipa": "/lɒst/", "meaning": "bị mất, bị lạc", "example": "lost transactions" }
+        {
+          "word": "lose",
+          "pos": "v",
+          "ipa": "/luːz/",
+          "meaning": "mất, đánh mất (lose, lost, lost)"
+        },
+        {
+          "word": "loss",
+          "pos": "n",
+          "ipa": "/lɒs/",
+          "meaning": "sự mất mát",
+          "example": "Backups protect against data loss."
+        },
+        {
+          "word": "lost",
+          "pos": "adj",
+          "ipa": "/lɒst/",
+          "meaning": "bị mất, bị lạc",
+          "example": "lost transactions"
+        }
       ]
     },
     {
@@ -71,8 +142,205 @@
       "source": "Chapter 1",
       "added": "2026-10-16",
       "family": [
-        { "word": "detailed", "pos": "adj", "ipa": "/ˈdiːteɪld/", "meaning": "chi tiết, tỉ mỉ", "example": "a detailed execution plan" },
-        { "word": "in detail", "pos": "phrase", "meaning": "một cách chi tiết", "example": "Chapter 2 covers this in detail." }
+        {
+          "word": "detailed",
+          "pos": "adj",
+          "ipa": "/ˈdiːteɪld/",
+          "meaning": "chi tiết, tỉ mỉ",
+          "example": "a detailed execution plan"
+        },
+        {
+          "word": "in detail",
+          "pos": "phrase",
+          "meaning": "một cách chi tiết",
+          "example": "Chapter 2 covers this in detail."
+        }
+      ]
+    },
+    {
+      "word": "foundation",
+      "pos": "n",
+      "ipa": "/faʊnˈdeɪʃn/",
+      "meaning": "nền tảng, cơ sở",
+      "example": "This book gives you a foundation for using the Oracle database.",
+      "example_vi": "Cuốn sách này cho bạn nền tảng để sử dụng cơ sở dữ liệu Oracle.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "found",
+          "pos": "v",
+          "ipa": "/faʊnd/",
+          "meaning": "thành lập, đặt nền móng",
+          "example": "Oracle was founded in 1977."
+        },
+        {
+          "word": "fundamental",
+          "pos": "adj",
+          "ipa": "/ˌfʌndəˈmentl/",
+          "meaning": "cơ bản, cốt lõi",
+          "example": "fundamental database concepts"
+        }
+      ]
+    },
+    {
+      "word": "efficiently",
+      "pos": "adv",
+      "ipa": "/ɪˈfɪʃntli/",
+      "meaning": "một cách hiệu quả (tiết kiệm tài nguyên, thời gian)",
+      "example": "An index lets Oracle find rows efficiently.",
+      "example_vi": "Chỉ mục giúp Oracle tìm các dòng một cách hiệu quả (nhanh, ít tốn tài nguyên).",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "efficient",
+          "pos": "adj",
+          "ipa": "/ɪˈfɪʃnt/",
+          "meaning": "hiệu quả, năng suất",
+          "example": "an efficient query"
+        },
+        {
+          "word": "efficiency",
+          "pos": "n",
+          "ipa": "/ɪˈfɪʃnsi/",
+          "meaning": "hiệu suất",
+          "example": "improve storage efficiency"
+        },
+        {
+          "word": "effectively",
+          "pos": "adv",
+          "ipa": "/ɪˈfektɪvli/",
+          "meaning": "hiệu quả (đạt đúng mục tiêu); khác efficiently = làm tốn ít công sức",
+          "example": "use the database effectively"
+        }
+      ]
+    },
+    {
+      "word": "with ... in mind",
+      "pos": "phrase",
+      "ipa": "/wɪð ... ɪn maɪnd/",
+      "meaning": "với ... trong đầu, luôn ghi nhớ/hướng tới điều gì",
+      "example": "We designed the schema with performance in mind.",
+      "example_vi": "Chúng tôi thiết kế lược đồ với mục tiêu hiệu năng trong đầu.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "keep in mind",
+          "pos": "phrase",
+          "meaning": "ghi nhớ, lưu ý",
+          "example": "Keep in mind that commits are permanent."
+        },
+        {
+          "word": "bear in mind",
+          "pos": "phrase",
+          "meaning": "lưu ý (trang trọng hơn)",
+          "example": "Bear in mind the cost of a full table scan."
+        }
+      ]
+    },
+    {
+      "word": "concentrate on",
+      "pos": "phrasal v",
+      "ipa": "/ˈkɒnsntreɪt ɒn/",
+      "meaning": "tập trung vào",
+      "example": "We've tried to concentrate on the most important Oracle issues.",
+      "example_vi": "Chúng tôi đã cố gắng tập trung vào những vấn đề quan trọng nhất của Oracle.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "concentration",
+          "pos": "n",
+          "ipa": "/ˌkɒnsnˈtreɪʃn/",
+          "meaning": "sự tập trung; nồng độ",
+          "example": "It requires full concentration."
+        },
+        {
+          "word": "focus on",
+          "pos": "phrasal v",
+          "meaning": "tập trung vào (đồng nghĩa)",
+          "example": "This chapter focuses on memory."
+        }
+      ]
+    },
+    {
+      "word": "comprehensive",
+      "pos": "adj",
+      "ipa": "/ˌkɒmprɪˈhensɪv/",
+      "meaning": "toàn diện, bao quát đầy đủ",
+      "example": "Every topic provides a comprehensive discussion.",
+      "example_vi": "Mỗi chủ đề đều trình bày một cách toàn diện.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "comprehensively",
+          "pos": "adv",
+          "ipa": "/ˌkɒmprɪˈhensɪvli/",
+          "meaning": "một cách toàn diện",
+          "example": "The topic is covered comprehensively."
+        },
+        {
+          "word": "comprehend",
+          "pos": "v",
+          "ipa": "/ˌkɒmprɪˈhend/",
+          "meaning": "hiểu thấu (nghĩa khác: hiểu, không phải toàn diện)",
+          "example": "hard to comprehend"
+        }
+      ]
+    },
+    {
+      "word": "concise",
+      "pos": "adj",
+      "ipa": "/kənˈsaɪs/",
+      "meaning": "ngắn gọn, súc tích",
+      "example": "Write concise error messages.",
+      "example_vi": "Hãy viết thông báo lỗi ngắn gọn.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "concisely",
+          "pos": "adv",
+          "ipa": "/kənˈsaɪsli/",
+          "meaning": "một cách ngắn gọn",
+          "example": "explain concisely"
+        },
+        {
+          "word": "conciseness",
+          "pos": "n",
+          "ipa": "/kənˈsaɪsnəs/",
+          "meaning": "sự ngắn gọn",
+          "example": "value conciseness"
+        }
+      ]
+    },
+    {
+      "word": "repercussion",
+      "pos": "n",
+      "ipa": "/ˌriːpəˈkʌʃn/",
+      "meaning": "hệ quả, tác động dây chuyền (thường ngoài ý muốn); hay dùng số nhiều",
+      "example": "Dropping that index had serious repercussions for performance.",
+      "example_vi": "Việc xóa chỉ mục đó gây ra hệ quả nghiêm trọng cho hiệu năng.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "consequence",
+          "pos": "n",
+          "ipa": "/ˈkɒnsɪkwəns/",
+          "meaning": "hậu quả, kết quả (đồng nghĩa, trung tính hơn)",
+          "example": "the consequences of a crash"
+        },
+        {
+          "word": "impact",
+          "pos": "n, v",
+          "ipa": "/ˈɪmpækt/",
+          "meaning": "tác động",
+          "example": "the impact on response time"
+        }
       ]
     }
   ]
