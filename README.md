@@ -37,3 +37,7 @@ Kho từ vựng tiếng Anh học từ sách, kèm nhắc học hằng ngày qua
 ```
 
 Xem thử tin nhắn mà không gửi: `DRY_RUN=1 python scripts/send_daily.py`
+
+## Bot luyện từ tương tác
+
+Thư mục `bot/` là bot Telegram dạng hỏi đáp (bot gửi nghĩa tiếng Việt, bạn gõ từ tiếng Anh), chạy trên Cloudflare Workers. Xem [bot/README.md](bot/README.md).

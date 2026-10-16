@@ -1,0 +1,15 @@
+name = "vocab-bot"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+# 01:00 UTC = 08:00 giờ Việt Nam
+[triggers]
+crons = ["0 1 * * *"]
+
+[[kv_namespaces]]
+binding = "VOCAB_KV"
+id = "REPLACE_WITH_KV_ID"
+
+[vars]
+WORDS_URLS = "https://raw.githubusercontent.com/anhkhoa2001/vocabulary/main/data/oracle-essentials.json"
+DAILY_COUNT = "15"
