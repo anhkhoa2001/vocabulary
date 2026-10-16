@@ -9,6 +9,8 @@ on:
 jobs:
   send:
     runs-on: ubuntu-latest
+    # Secrets are stored as environment secrets in this environment
+    environment: TELEGRAM_BOT_TOKEN
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
