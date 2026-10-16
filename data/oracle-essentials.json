@@ -493,6 +493,178 @@
           "example": "the table, or rather the view"
         }
       ]
+    },
+    {
+      "word": "uniqueness",
+      "pos": "n",
+      "ipa": "/juˈniːknəs/",
+      "meaning": "sự độc đáo, sự khác biệt",
+      "example": "The uniqueness of this book is its focus on principles.",
+      "example_vi": "Điểm độc đáo của cuốn sách này là tập trung vào nguyên lý.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "unique",
+          "pos": "adj",
+          "ipa": "/juˈniːk/",
+          "meaning": "duy nhất, độc nhất",
+          "example": "a unique constraint"
+        },
+        {
+          "word": "uniquely",
+          "pos": "adv",
+          "ipa": "/juˈniːkli/",
+          "meaning": "một cách duy nhất",
+          "example": "Each row is uniquely identified by its ROWID."
+        }
+      ]
+    },
+    {
+      "word": "ideal",
+      "pos": "adj, n",
+      "ipa": "/aɪˈdiːəl/",
+      "meaning": "lý tưởng",
+      "example": "This is an ideal first Oracle book.",
+      "example_vi": "Đây là cuốn sách Oracle đầu tiên lý tưởng.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "ideally",
+          "pos": "adv",
+          "ipa": "/aɪˈdiːəli/",
+          "meaning": "tốt nhất là, lý tưởng nhất là",
+          "example": "Ideally, backups run at night."
+        }
+      ]
+    },
+    {
+      "word": "spectrum",
+      "pos": "n",
+      "ipa": "/ˈspektrəm/",
+      "meaning": "dải, phổ; nhiều loại khác nhau",
+      "example": "The book is written for a wide spectrum of Oracle users.",
+      "example_vi": "Cuốn sách được viết cho nhiều đối tượng người dùng Oracle khác nhau.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "a wide/broad spectrum of",
+          "pos": "phrase",
+          "meaning": "nhiều loại … khác nhau",
+          "example": "a broad spectrum of workloads"
+        },
+        {
+          "word": "spectra",
+          "pos": "n (plural)",
+          "ipa": "/ˈspektrə/",
+          "meaning": "số nhiều của spectrum"
+        }
+      ]
+    },
+    {
+      "word": "refer to",
+      "pos": "phrasal v",
+      "ipa": "/rɪˈfɜː tuː/",
+      "meaning": "tham khảo, tra cứu; nhắc đến",
+      "example": "Refer to the Oracle documentation for details.",
+      "example_vi": "Hãy tham khảo tài liệu Oracle để biết chi tiết.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "reference",
+          "pos": "n",
+          "ipa": "/ˈrefrəns/",
+          "meaning": "tài liệu tham khảo; sự tham chiếu",
+          "example": "the SQL Language Reference"
+        },
+        {
+          "word": "referential",
+          "pos": "adj",
+          "ipa": "/ˌrefəˈrenʃl/",
+          "meaning": "thuộc tham chiếu",
+          "example": "referential integrity"
+        }
+      ]
+    },
+    {
+      "word": "specific",
+      "pos": "adj",
+      "ipa": "/spəˈsɪfɪk/",
+      "meaning": "cụ thể; chuyên biệt",
+      "example": "Read other, more specific books for details.",
+      "example_vi": "Đọc những cuốn sách khác chuyên sâu hơn để biết chi tiết.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "specify",
+          "pos": "v",
+          "ipa": "/ˈspesɪfaɪ/",
+          "meaning": "chỉ rõ",
+          "example": "specify the tablespace"
+        },
+        {
+          "word": "specification",
+          "pos": "n",
+          "ipa": "/ˌspesɪfɪˈkeɪʃn/",
+          "meaning": "đặc tả",
+          "example": "a hardware specification"
+        },
+        {
+          "word": "specifically",
+          "pos": "adv",
+          "ipa": "/spəˈsɪfɪkli/",
+          "meaning": "một cách cụ thể",
+          "example": "specifically designed for OLTP"
+        }
+      ]
+    },
+    {
+      "word": "accelerator",
+      "pos": "n",
+      "ipa": "/əkˈseləreɪtə/",
+      "meaning": "bộ tăng tốc, thứ giúp tiến nhanh hơn",
+      "example": "We hope this book will act as an accelerator for you.",
+      "example_vi": "Chúng tôi hy vọng cuốn sách sẽ là bệ phóng giúp bạn tiến nhanh hơn.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "accelerate",
+          "pos": "v",
+          "ipa": "/əkˈseləreɪt/",
+          "meaning": "tăng tốc",
+          "example": "accelerate query performance"
+        },
+        {
+          "word": "acceleration",
+          "pos": "n",
+          "ipa": "/əkˌseləˈreɪʃn/",
+          "meaning": "sự tăng tốc",
+          "example": "hardware acceleration"
+        }
+      ]
+    },
+    {
+      "word": "put ... to (good/the best) use",
+      "pos": "phrase",
+      "ipa": "",
+      "meaning": "tận dụng (tốt nhất)",
+      "example": "Put the spare memory to good use by enlarging the buffer cache.",
+      "example_vi": "Tận dụng bộ nhớ dư bằng cách tăng kích thước buffer cache.",
+      "source": "Preface - Goals of This Book",
+      "added": "2026-10-16",
+      "family": [
+        {
+          "word": "make use of",
+          "pos": "phrase",
+          "meaning": "tận dụng, sử dụng",
+          "example": "make use of parallel query"
+        }
+      ]
     }
   ]
 }
