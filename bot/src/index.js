@@ -244,7 +244,11 @@ export function card(w) {
 
 async function getSession(env, chatId) {
   const raw = await env.VOCAB_KV.get(`session:${chatId}`);
-  return raw ? JSON.parse(raw) : null;
+  if (!raw) return null;
+  const s = JSON.parse(raw);
+  // Sessions saved by an older version lack these fields; start a fresh one.
+  if (!Array.isArray(s.graded) || s.newCount === undefined) return null;
+  return s;
 }
 
 async function saveSession(env, chatId, s) {
