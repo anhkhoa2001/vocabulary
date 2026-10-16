@@ -1,9 +1,7 @@
 name: Daily vocabulary
 
 on:
-  schedule:
-    # 01:00 UTC = 08:00 giờ Việt Nam (GitHub có thể trễ vài phút)
-    - cron: "0 1 * * *"
+  # Lịch 08:00 hằng ngày đã chuyển sang bot Cloudflare (bot/), workflow này chỉ chạy tay.
   workflow_dispatch:
 
 jobs:
