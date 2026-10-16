@@ -2,12 +2,13 @@
 // The bot shows a Vietnamese meaning, you type the English word, it checks.
 //
 // Bindings (see wrangler.toml / README):
-//   VOCAB_KV            KV namespace for session state
+//   VOCAB_KV            KV namespace for session state and review schedule
 //   TELEGRAM_BOT_TOKEN  secret
 //   WEBHOOK_SECRET      secret, protects /webhook and /setup
 //   ALLOWED_CHAT_ID     secret, only this chat may use the bot
 //   WORDS_URLS          var, comma-separated raw JSON URLs
-//   DAILY_COUNT         var, words per day (default 15)
+//   DAILY_COUNT         var, max words per day (default 15)
+//   NEW_PER_DAY         var, max new words per day (default 5)
 
 const TZ_OFFSET_MS = 7 * 3600 * 1000; // Vietnam time
 const MAX_TRIES = 3;
@@ -35,10 +36,12 @@ export default {
     const words = await loadWords(env);
     if (!words.length) return;
     const today = todayVN();
-    const { newWords, review } = pickToday(words, today, dailyCount(env));
-    const total = newWords.length + review.length;
+    const srs = await getSrs(env, env.ALLOWED_CHAT_ID);
+    const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
+    const total = newWords.length + reviews.length;
+    if (!total) return;
     await send(env, env.ALLOWED_CHAT_ID,
-      `📚 Hôm nay có <b>${total} từ</b> cần học (${newWords.length} mới, ${review.length} ôn tập).\n` +
+      `📚 Hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\n` +
       `Gõ /learn để bắt đầu.`);
   },
 };
@@ -60,7 +63,8 @@ async function setup(url, env) {
       { command: "hint", description: "Gợi ý từ hiện tại" },
       { command: "skip", description: "Xem đáp án và qua từ tiếp" },
       { command: "today", description: "Danh sách từ hôm nay" },
-      { command: "stop", description: "Dừng phiên học" },
+      { command: "stats", description: "Xem tiến độ học" },
+      { command: "stop", description: "Tạm dừng phiên học" },
     ],
   });
   return Response.json(res);
@@ -88,22 +92,65 @@ function dailyCount(env) {
   return parseInt(env.DAILY_COUNT || "15", 10);
 }
 
-function dayNumber(isoDate) {
-  return Math.floor(Date.parse(isoDate + "T00:00:00Z") / 86400000);
+function newPerDay(env) {
+  return parseInt(env.NEW_PER_DAY || "5", 10);
 }
 
-// New words (added since yesterday) first, then rotate through older words.
-export function pickToday(words, today, n) {
-  const yesterday = new Date(Date.parse(today + "T00:00:00Z") - 86400000).toISOString().slice(0, 10);
-  const newWords = words.filter((w) => (w.added || "") >= yesterday);
-  const old = words.filter((w) => !newWords.includes(w));
-  const review = [];
-  const k = Math.min(Math.max(n - newWords.length, 0), old.length);
-  if (k > 0) {
-    const start = (dayNumber(today) * k) % old.length;
-    for (let i = 0; i < k; i++) review.push(old[(start + i) % old.length]);
+export function addDays(isoDate, n) {
+  return new Date(Date.parse(isoDate + "T00:00:00Z") + n * 86400000).toISOString().slice(0, 10);
+}
+
+// ---------- spaced repetition (SM-2) ----------
+// Each word the learner has seen gets a record in srs[word]:
+//   { reps, interval, ease, due, lapses, seen, correct, history: [[date, grade], ...] }
+// Grades: 5 right first try, 4 one-letter typo, 3 right after 1 hint/miss,
+// 2 right after 2 hints/misses, 1 skipped or revealed. Below 3 counts as forgotten.
+
+export function review(rec, grade, today) {
+  const r = rec ? { ...rec } : { reps: 0, interval: 0, ease: 2.5, lapses: 0, seen: 0, correct: 0, history: [] };
+  if (grade < 3) {
+    r.reps = 0;
+    r.interval = 1;
+    r.lapses += 1;
+  } else {
+    r.interval = r.reps === 0 ? 1 : r.reps === 1 ? 3 : Math.round(r.interval * r.ease);
+    r.reps += 1;
+    r.correct += 1;
   }
-  return { newWords, review };
+  r.ease = Math.max(1.3, r.ease + 0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02));
+  r.ease = Math.round(r.ease * 100) / 100;
+  r.seen += 1;
+  r.due = addDays(today, r.interval);
+  r.history = [...r.history, [today, grade]].slice(-20);
+  return r;
+}
+
+// Due reviews first (most overdue, then hardest), then unseen words in the
+// order they were added, at most NEW_PER_DAY new words and DAILY_COUNT total.
+export function pickToday(words, srs, today, total, maxNew) {
+  const due = words
+    .filter((w) => srs[w.word] && srs[w.word].due <= today)
+    .sort((a, b) => srs[a.word].due.localeCompare(srs[b.word].due) || srs[a.word].ease - srs[b.word].ease);
+  const unseen = words.filter((w) => !srs[w.word]);
+  const newWords = unseen.slice(0, Math.min(maxNew, total));
+  const reviews = due.slice(0, Math.max(total - newWords.length, 0));
+  return { newWords, reviews, dueTotal: due.length };
+}
+
+export function gradeFor(result, tries) {
+  if (result === "exact" && tries === 0) return 5;
+  if (tries === 0) return 4;
+  if (tries === 1) return 3;
+  return 2;
+}
+
+async function getSrs(env, chatId) {
+  const raw = await env.VOCAB_KV.get(`srs:${chatId}`);
+  return raw ? JSON.parse(raw) : {};
+}
+
+async function saveSrs(env, chatId, srs) {
+  await env.VOCAB_KV.put(`srs:${chatId}`, JSON.stringify(srs));
 }
 
 // ---------- answer checking ----------
@@ -182,7 +229,7 @@ export function card(w) {
   if (fam.length) {
     lines.push("Họ từ:");
     for (const f of fam) {
-      let s = `• <b>${esc(f.word)}</b> (${esc(f.pos)})${f.ipa ? " " + esc(f.ipa) : ""}:${esc(f.meaning)}`;
+      let s = `• <b>${esc(f.word)}</b> (${esc(f.pos)})${f.ipa ? " " + esc(f.ipa) : ""}: ${esc(f.meaning)}`;
       if (f.note) s += `\n  ⚠️ ${esc(f.note)}`;
       lines.push(s);
     }
@@ -201,11 +248,54 @@ async function saveSession(env, chatId, s) {
   await env.VOCAB_KV.put(`session:${chatId}`, JSON.stringify(s), { expirationTtl: 3 * 86400 });
 }
 
-async function newSession(env, today) {
+async function newSession(env, chatId, today) {
   const words = await loadWords(env);
-  const { newWords, review } = pickToday(words, today, dailyCount(env));
-  const list = [...newWords, ...review];
-  return { date: today, queue: list, total: list.length, done: 0, tries: 0, correct: 0, missed: [], retried: [] };
+  const srs = await getSrs(env, chatId);
+  const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
+  const list = [...reviews, ...newWords];
+  return {
+    date: today, queue: list, total: list.length, done: 0, tries: 0, correct: 0,
+    missed: [], retried: [], graded: [], newCount: newWords.length, reviewCount: reviews.length,
+  };
+}
+
+// Record the first result of a word in this session into its SM-2 schedule.
+async function grade(env, chatId, s, w, g) {
+  if (s.graded.includes(w.word)) return null;
+  s.graded.push(w.word);
+  const srs = await getSrs(env, chatId);
+  srs[w.word] = review(srs[w.word], g, s.date);
+  await saveSrs(env, chatId, srs);
+  return srs[w.word];
+}
+
+function nextText(rec) {
+  if (!rec) return "";
+  return rec.interval === 1 ? "\n🗓 Ôn lại: ngày mai" : `\n🗓 Ôn lại sau ${rec.interval} ngày`;
+}
+
+export function statsText(words, srs, today) {
+  const recs = Object.values(srs);
+  const seen = recs.length;
+  const due = recs.filter((r) => r.due <= today).length;
+  const mature = recs.filter((r) => r.interval >= 21).length;
+  const learning = seen - mature;
+  const tries = recs.reduce((a, r) => a + r.seen, 0);
+  const right = recs.reduce((a, r) => a + r.correct, 0);
+  const hard = Object.entries(srs)
+    .filter(([, r]) => r.lapses > 0)
+    .sort((a, b) => b[1].lapses - a[1].lapses || a[1].ease - b[1].ease)
+    .slice(0, 5)
+    .map(([k, r]) => `<b>${esc(k)}</b> (quên ${r.lapses} lần)`);
+  let t = `📊 <b>Tiến độ</b>\n` +
+    `Tổng số từ trong kho: ${words.length}\n` +
+    `Chưa học: ${Math.max(words.length - seen, 0)}\n` +
+    `Đang học: ${learning}\n` +
+    `Đã thuộc (ôn cách ≥ 21 ngày): ${mature}\n` +
+    `Đến hạn ôn hôm nay: ${due}\n` +
+    `Tỉ lệ đúng: ${tries ? Math.round((right / tries) * 100) : 0}% (${right}/${tries})`;
+  if (hard.length) t += `\nTừ hay quên: ${hard.join(", ")}`;
+  return t;
 }
 
 export async function handleUpdate(update, env) {
@@ -223,26 +313,37 @@ export async function handleUpdate(update, env) {
 
   if (cmd === "/start") {
     await send(env, chatId,
-      "Chào bạn! Mỗi lượt mình gửi <b>nghĩa tiếng Việt</b>, bạn gõ <b>từ tiếng Anh</b>.\n\n" +
-      "/learn bắt đầu học\n/hint gợi ý\n/skip xem đáp án\n/today danh sách từ hôm nay\n/stop dừng");
+      "Chào bạn! Mỗi lượt mình gửi <b>nghĩa tiếng Việt</b>, bạn gõ <b>từ tiếng Anh</b>.\n" +
+      "Từ nào bạn hay quên sẽ được nhắc lại dày hơn, từ đã thuộc sẽ giãn dần ra.\n\n" +
+      "/learn bắt đầu học\n/hint gợi ý\n/skip xem đáp án\n/today danh sách từ hôm nay\n/stats tiến độ\n/stop tạm dừng");
+    return;
+  }
+
+  if (cmd === "/stats") {
+    await send(env, chatId, statsText(await loadWords(env), await getSrs(env, chatId), today));
     return;
   }
 
   if (cmd === "/today") {
-    const fresh = await newSession(env, today);
+    const fresh = s && s.date === today ? s : await newSession(env, chatId, today);
+    if (!fresh.queue.length) {
+      await send(env, chatId, "Hôm nay không còn từ nào cần học. 🎉");
+      return;
+    }
     const lines = fresh.queue.map((w, i) => `${i + 1}. <b>${esc(w.word)}</b>: ${esc(w.meaning)}`);
-    await send(env, chatId, `📚 Từ hôm nay (${fresh.total}):\n` + lines.join("\n"));
+    await send(env, chatId, `📚 Từ còn lại hôm nay (${fresh.queue.length}):\n` + lines.join("\n"));
     return;
   }
 
   if (cmd === "/learn") {
-    if (!s || s.date !== today || !s.queue.length) s = await newSession(env, today);
+    if (!s || s.date !== today) s = await newSession(env, chatId, today);
     if (!s.queue.length) {
-      await send(env, chatId, "Chưa có từ nào trong kho.");
+      await send(env, chatId, s.total ? "Hôm nay bạn học xong rồi. 🎉 Mai quay lại nhé!" : "Hôm nay không có từ nào đến hạn ôn. 🎉");
       return;
     }
     await saveSession(env, chatId, s);
-    await send(env, chatId, promptText(s.queue[0], s.done + 1, s.total));
+    const intro = s.done === 0 ? `Bắt đầu: ${s.reviewCount} từ ôn tập, ${s.newCount} từ mới.\n\n` : "";
+    await send(env, chatId, intro + promptText(s.queue[0], s.done + 1, s.total));
     return;
   }
 
@@ -252,8 +353,7 @@ export async function handleUpdate(update, env) {
   }
 
   if (cmd === "/stop") {
-    await env.VOCAB_KV.delete(`session:${chatId}`);
-    await send(env, chatId, `Đã dừng. Bạn làm đúng ${s.correct}/${s.done} lượt. Gõ /learn để học lại.`);
+    await send(env, chatId, `Đã tạm dừng. Bạn làm đúng ${s.correct}/${s.done} lượt. Gõ /learn để học tiếp các từ còn lại.`);
     return;
   }
 
@@ -278,13 +378,14 @@ export async function handleUpdate(update, env) {
 
   const result = check(text, w.word);
   if (result !== "wrong") {
+    const rec = await grade(env, chatId, s, w, gradeFor(result, s.tries));
     s.correct += 1;
     s.queue.shift();
     s.done += 1;
     s.tries = 0;
     const head = result === "exact" ? "✅ Chính xác!" : `✅ Gần đúng! Viết đúng là: <b>${esc(w.word)}</b>`;
     await saveSession(env, chatId, s);
-    await send(env, chatId, `${head}\n\n${card(w)}`);
+    await send(env, chatId, `${head}${nextText(rec)}\n\n${card(w)}`);
     await next(env, chatId, s);
     return;
   }
@@ -300,6 +401,7 @@ export async function handleUpdate(update, env) {
 
 // Show the answer; a missed word comes back once at the end of the queue.
 async function reveal(env, chatId, s, w, head) {
+  const rec = await grade(env, chatId, s, w, 1);
   s.queue.shift();
   s.tries = 0;
   if (!s.retried.includes(w.word)) {
@@ -310,7 +412,7 @@ async function reveal(env, chatId, s, w, head) {
   s.done += 1;
   if (!s.missed.includes(w.word)) s.missed.push(w.word);
   await saveSession(env, chatId, s);
-  await send(env, chatId, `${head}\n\n${card(w)}`);
+  await send(env, chatId, `${head}${nextText(rec)}\n\n${card(w)}`);
   await next(env, chatId, s);
 }
 
@@ -320,7 +422,8 @@ async function next(env, chatId, s) {
     return;
   }
   let summary = `🎉 Xong bài hôm nay! Đúng ${s.correct}/${s.done} lượt.`;
-  if (s.missed.length) summary += `\nCần ôn thêm: ${s.missed.map((x) => `<b>${esc(x)}</b>`).join(", ")}`;
+  if (s.missed.length) summary += `\nTừ bị quên (sẽ nhắc lại ngày mai): ${s.missed.map((x) => `<b>${esc(x)}</b>`).join(", ")}`;
+  summary += `\nGõ /stats để xem tiến độ.`;
   await send(env, chatId, summary);
 }
 
