@@ -17,6 +17,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/setup") return setup(url, env);
+    // Sends the 08:00 reminder right now, to check it without waiting for the cron.
+    if (url.pathname === "/morning") {
+      if (url.searchParams.get("key") !== env.WEBHOOK_SECRET) return new Response("forbidden", { status: 403 });
+      return Response.json(await morning(env));
+    }
     if (url.pathname === "/webhook" && request.method === "POST") {
       if (request.headers.get("X-Telegram-Bot-Api-Secret-Token") !== env.WEBHOOK_SECRET) {
         return new Response("forbidden", { status: 403 });
@@ -33,19 +38,29 @@ export default {
   },
 
   async scheduled(event, env) {
-    const words = await loadWords(env);
-    if (!words.length) return;
-    const today = todayVN();
-    const srs = await getSrs(env, env.ALLOWED_CHAT_ID);
-    const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
-    const total = newWords.length + reviews.length;
-    if (!total) return;
-    await send(env, env.ALLOWED_CHAT_ID,
-      `📚 Hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\n` +
-      `Gõ /learn để bắt đầu.`,
-      [["▶️ Học ngay", "/learn"], ["⏭ Bỏ qua hôm nay", "/skipday"]]);
+    await morning(env);
   },
 };
+
+// ---------- morning reminder ----------
+
+async function morning(env) {
+  if (!env.ALLOWED_CHAT_ID) return { ok: false, error: "ALLOWED_CHAT_ID is not set" };
+  const words = await loadWords(env);
+  if (!words.length) return { ok: false, error: "no words loaded, check WORDS_URLS" };
+  const today = todayVN();
+  const srs = await getSrs(env, env.ALLOWED_CHAT_ID);
+  const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
+  const total = newWords.length + reviews.length;
+  const text = total
+    ? `📚 Hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\nGõ /learn để bắt đầu.`
+    : `📚 Hôm nay không có từ nào đến hạn ôn. Muốn học thêm từ không?`;
+  const buttons = total
+    ? [["▶️ Học ngay", "/learn"], ["⏭ Bỏ qua hôm nay", "/skipday"]]
+    : [[`➕ Học thêm ${newPerDay(env)} từ`, "/more"]];
+  const res = await send(env, env.ALLOWED_CHAT_ID, text, buttons);
+  return { ok: !!res.ok, today, total, telegram: res.ok ? "sent" : res };
+}
 
 // ---------- setup ----------
 
