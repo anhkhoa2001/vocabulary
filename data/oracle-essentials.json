@@ -827,6 +827,156 @@
           "example": "O'Reilly is the publisher"
         }
       ]
+    },
+    {
+      "word": "lay the groundwork (for)",
+      "pos": "phrase",
+      "ipa": "/leɪ ðə ˈɡraʊndwɜːrk/",
+      "meaning": "đặt nền móng, chuẩn bị cơ sở cho",
+      "example": "A good naming convention lays the groundwork for a maintainable schema.",
+      "example_vi": "Quy ước đặt tên tốt đặt nền móng cho một schema dễ bảo trì.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "groundwork",
+          "pos": "n",
+          "meaning": "công tác chuẩn bị, nền móng",
+          "example": "the groundwork for the upgrade"
+        },
+        {
+          "word": "lay",
+          "pos": "v",
+          "meaning": "đặt (quá khứ: laid); khác lie = nằm",
+          "example": "laid the foundation"
+        }
+      ]
+    },
+    {
+      "word": "range",
+      "pos": "n",
+      "ipa": "/reɪndʒ/",
+      "meaning": "phạm vi, dải (a wide range of = nhiều loại)",
+      "example": "Oracle supports a wide range of platforms.",
+      "example_vi": "Oracle hỗ trợ nhiều nền tảng.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "range",
+          "pos": "v",
+          "meaning": "dao động trong khoảng",
+          "example": "block sizes range from 2 KB to 32 KB"
+        },
+        {
+          "word": "range partitioning",
+          "pos": "n",
+          "meaning": "phân vùng theo khoảng giá trị (SQL)",
+          "example": "range partitioning by date"
+        }
+      ]
+    },
+    {
+      "word": "in depth",
+      "pos": "phrase",
+      "ipa": "/ɪn depθ/",
+      "meaning": "chuyên sâu, kỹ (in more depth = sâu hơn)",
+      "example": "Chapter 7 covers indexing in depth.",
+      "example_vi": "Chương 7 bàn sâu về đánh index.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "depth",
+          "pos": "n",
+          "meaning": "độ sâu",
+          "example": "the depth of the B-tree"
+        },
+        {
+          "word": "deepen",
+          "pos": "v",
+          "meaning": "làm sâu thêm",
+          "example": "deepen your knowledge"
+        },
+        {
+          "word": "in-depth",
+          "pos": "adj",
+          "meaning": "chuyên sâu (đứng trước danh từ)",
+          "example": "an in-depth analysis"
+        }
+      ]
+    },
+    {
+      "word": "flavor",
+      "pos": "n",
+      "ipa": "/ˈfleɪvər/",
+      "meaning": "(IT) phiên bản, biến thể của cùng sản phẩm; nghĩa gốc: hương vị",
+      "example": "Linux comes in many flavors, such as Oracle Linux and Ubuntu.",
+      "example_vi": "Linux có nhiều biến thể như Oracle Linux và Ubuntu.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "flavour",
+          "pos": "n",
+          "meaning": "cách viết Anh-Anh",
+          "example": "different flavours of Unix"
+        }
+      ]
+    },
+    {
+      "word": "be unique to",
+      "pos": "phrase",
+      "ipa": "/juˈniːk tə/",
+      "meaning": "chỉ có ở, riêng của",
+      "example": "The Flashback Query feature is unique to Oracle.",
+      "example_vi": "Tính năng Flashback Query chỉ có ở Oracle.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "uniquely",
+          "pos": "adv",
+          "meaning": "một cách đặc biệt, riêng biệt",
+          "example": "uniquely identifies a row"
+        },
+        {
+          "word": "UNIQUE constraint",
+          "pos": "n",
+          "meaning": "ràng buộc không trùng lặp (SQL)",
+          "example": "add a UNIQUE constraint on email"
+        }
+      ]
+    },
+    {
+      "word": "brief",
+      "pos": "adj",
+      "ipa": "/briːf/",
+      "meaning": "ngắn gọn, vắn tắt",
+      "example": "Here is a brief overview of the SGA.",
+      "example_vi": "Đây là tổng quan ngắn gọn về SGA.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "briefly",
+          "pos": "adv",
+          "meaning": "một cách ngắn gọn",
+          "example": "briefly describe the architecture"
+        },
+        {
+          "word": "brief",
+          "pos": "v",
+          "meaning": "tóm tắt, báo cáo nhanh cho ai",
+          "example": "brief the team on the outage"
+        },
+        {
+          "word": "briefing",
+          "pos": "n",
+          "meaning": "buổi báo cáo ngắn",
+          "example": "a security briefing"
+        }
+      ]
     }
   ]
 }
