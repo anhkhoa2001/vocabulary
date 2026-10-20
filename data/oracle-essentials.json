@@ -665,6 +665,168 @@
           "example": "make use of parallel query"
         }
       ]
+    },
+    {
+      "word": "thorough",
+      "pos": "adj",
+      "ipa": "/ˈθʌrə/",
+      "meaning": "kỹ lưỡng, thấu đáo",
+      "example": "A thorough review of the execution plan revealed a missing index.",
+      "example_vi": "Xem xét kỹ execution plan thì thấy thiếu một index.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "thoroughly",
+          "pos": "adv",
+          "meaning": "một cách kỹ lưỡng",
+          "example": "test the patch thoroughly"
+        },
+        {
+          "word": "thoroughness",
+          "pos": "n",
+          "meaning": "sự kỹ lưỡng",
+          "example": "the thoroughness of the audit"
+        }
+      ]
+    },
+    {
+      "word": "grounding",
+      "pos": "n",
+      "ipa": "/ˈɡraʊndɪŋ/",
+      "meaning": "kiến thức nền tảng (a grounding in sth)",
+      "example": "You need a solid grounding in SQL before learning PL/SQL.",
+      "example_vi": "Cần nền tảng SQL vững trước khi học PL/SQL.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "ground",
+          "pos": "n/v",
+          "meaning": "mặt đất, cơ sở; (điện) nối đất",
+          "example": "on solid ground"
+        },
+        {
+          "word": "groundwork",
+          "pos": "n",
+          "meaning": "công tác chuẩn bị, nền móng",
+          "example": "lay the groundwork for the migration"
+        }
+      ]
+    },
+    {
+      "word": "be intended for",
+      "pos": "phrase",
+      "ipa": "/ɪnˈtendɪd fɔːr/",
+      "meaning": "dành cho, nhằm phục vụ ai",
+      "example": "This feature is intended for very large databases.",
+      "example_vi": "Tính năng này dành cho các CSDL rất lớn.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "intend",
+          "pos": "v",
+          "meaning": "dự định",
+          "example": "we intend to upgrade next year"
+        },
+        {
+          "word": "intention",
+          "pos": "n",
+          "meaning": "ý định",
+          "example": "no intention of dropping the table"
+        },
+        {
+          "word": "intentional",
+          "pos": "adj",
+          "meaning": "cố ý",
+          "example": "an intentional design choice"
+        }
+      ]
+    },
+    {
+      "word": "novice",
+      "pos": "n",
+      "ipa": "/ˈnɑːvɪs/",
+      "meaning": "người mới vào nghề, người mới bắt đầu",
+      "example": "The wizard helps novices create their first database.",
+      "example_vi": "Trình wizard giúp người mới tạo CSDL đầu tiên.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "novice",
+          "pos": "adj",
+          "meaning": "mới, chưa có kinh nghiệm",
+          "example": "a novice DBA"
+        }
+      ]
+    },
+    {
+      "word": "connect the dots",
+      "pos": "idiom",
+      "ipa": "/kəˈnekt ðə dɑːts/",
+      "meaning": "xâu chuỗi các thông tin rời rạc để thấy bức tranh tổng thể",
+      "example": "Reading the AWR report helped me connect the dots between the slow queries and the I/O spikes.",
+      "example_vi": "Đọc báo cáo AWR giúp tôi xâu chuỗi được mối liên hệ giữa câu truy vấn chậm và các đợt tăng I/O.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "connection",
+          "pos": "n",
+          "meaning": "kết nối",
+          "example": "a database connection"
+        },
+        {
+          "word": "connectivity",
+          "pos": "n",
+          "meaning": "khả năng kết nối",
+          "example": "network connectivity"
+        }
+      ]
+    },
+    {
+      "word": "voluminous",
+      "pos": "adj",
+      "ipa": "/vəˈluːmɪnəs/",
+      "meaning": "đồ sộ, rất nhiều (tài liệu, nội dung)",
+      "example": "Oracle's documentation is voluminous, so start with the Concepts guide.",
+      "example_vi": "Tài liệu Oracle rất đồ sộ, nên bắt đầu từ Concepts guide.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "volume",
+          "pos": "n",
+          "meaning": "khối lượng; (lưu trữ) ổ đĩa logic",
+          "example": "data volume, storage volume"
+        }
+      ]
+    },
+    {
+      "word": "publication",
+      "pos": "n",
+      "ipa": "/ˌpʌblɪˈkeɪʃn/",
+      "meaning": "ấn phẩm; sự xuất bản",
+      "example": "The white paper is Oracle's latest publication on Exadata.",
+      "example_vi": "Bản white paper là ấn phẩm mới nhất của Oracle về Exadata.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "publish",
+          "pos": "v",
+          "meaning": "xuất bản, công bố",
+          "example": "publish a white paper"
+        },
+        {
+          "word": "publisher",
+          "pos": "n",
+          "meaning": "nhà xuất bản",
+          "example": "O'Reilly is the publisher"
+        }
+      ]
     }
   ]
 }
