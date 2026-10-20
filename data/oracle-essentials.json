@@ -977,6 +977,210 @@
           "example": "a security briefing"
         }
       ]
+    },
+    {
+      "word": "vendor",
+      "pos": "n",
+      "ipa": "/ˈvendər/",
+      "meaning": "nhà cung cấp (phần mềm, phần cứng)",
+      "example": "Oracle, IBM and Microsoft are the major database vendors.",
+      "example_vi": "Oracle, IBM và Microsoft là các nhà cung cấp CSDL lớn.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "vendor lock-in",
+          "pos": "n",
+          "meaning": "sự phụ thuộc vào một nhà cung cấp",
+          "example": "avoid vendor lock-in"
+        }
+      ]
+    },
+    {
+      "word": "recognize (as)",
+      "pos": "v",
+      "ipa": "/ˈrekəɡnaɪz/",
+      "meaning": "công nhận là; nhận ra",
+      "example": "PostgreSQL is widely recognized as a reliable open-source database.",
+      "example_vi": "PostgreSQL được công nhận rộng rãi là CSDL mã nguồn mở đáng tin cậy.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "recognition",
+          "pos": "n",
+          "meaning": "sự công nhận",
+          "example": "industry recognition"
+        },
+        {
+          "word": "recognizable",
+          "pos": "adj",
+          "meaning": "dễ nhận ra",
+          "example": "a recognizable error pattern"
+        }
+      ]
+    },
+    {
+      "word": "be typical of",
+      "pos": "phrase",
+      "ipa": "/ˈtɪpɪkl əv/",
+      "meaning": "mang đặc trưng của, điển hình cho",
+      "example": "Frequent schema changes are typical of early-stage projects.",
+      "example_vi": "Thay đổi schema liên tục là điển hình của dự án giai đoạn đầu.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "typically",
+          "pos": "adv",
+          "meaning": "thường thì",
+          "example": "typically runs at night"
+        },
+        {
+          "word": "atypical",
+          "pos": "adj",
+          "meaning": "bất thường",
+          "example": "atypical workload"
+        }
+      ]
+    },
+    {
+      "word": "such that",
+      "pos": "conj",
+      "ipa": "/sʌtʃ ðæt/",
+      "meaning": "đến mức mà, sao cho",
+      "example": "The table grew such that full scans took hours.",
+      "example_vi": "Bảng lớn đến mức full scan mất hàng giờ.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "so ... that",
+          "pos": "conj",
+          "meaning": "quá... đến nỗi",
+          "example": "so large that it timed out"
+        }
+      ]
+    },
+    {
+      "word": "capability",
+      "pos": "n",
+      "ipa": "/ˌkeɪpəˈbɪləti/",
+      "meaning": "năng lực, khả năng (của hệ thống)",
+      "example": "Exadata adds smart scan capabilities to the storage layer.",
+      "example_vi": "Exadata bổ sung khả năng smart scan cho tầng lưu trữ.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "capable",
+          "pos": "adj",
+          "meaning": "có khả năng (capable of + V-ing)",
+          "example": "capable of handling 10,000 users"
+        },
+        {
+          "word": "capacity",
+          "pos": "n",
+          "meaning": "dung lượng, sức chứa (khác nghĩa)",
+          "example": "storage capacity"
+        }
+      ]
+    },
+    {
+      "word": "view ... as",
+      "pos": "v",
+      "ipa": "/vjuː əz/",
+      "meaning": "xem như, đánh giá là",
+      "example": "Many DBAs view RMAN as the standard backup tool.",
+      "example_vi": "Nhiều DBA xem RMAN là công cụ backup chuẩn.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "view",
+          "pos": "n",
+          "meaning": "quan điểm; (SQL) bảng ảo",
+          "example": "create a view"
+        },
+        {
+          "word": "viewpoint",
+          "pos": "n",
+          "meaning": "quan điểm",
+          "example": "from a DBA's viewpoint"
+        }
+      ]
+    },
+    {
+      "word": "release",
+      "pos": "n/v",
+      "ipa": "/rɪˈliːs/",
+      "meaning": "(n) phiên bản phát hành; (v) phát hành",
+      "example": "Oracle 11g was released in 2007.",
+      "example_vi": "Oracle 11g được phát hành năm 2007.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "release notes",
+          "pos": "n",
+          "meaning": "ghi chú phát hành",
+          "example": "read the release notes"
+        },
+        {
+          "word": "release a lock",
+          "pos": "phrase",
+          "meaning": "nhả khóa (Oracle)",
+          "example": "commit releases the locks"
+        }
+      ]
+    },
+    {
+      "word": "scalability",
+      "pos": "n",
+      "ipa": "/ˌskeɪləˈbɪləti/",
+      "meaning": "khả năng mở rộng (khi tải/dữ liệu tăng)",
+      "example": "RAC improves scalability by adding more nodes.",
+      "example_vi": "RAC tăng khả năng mở rộng bằng cách thêm node.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "scale",
+          "pos": "v",
+          "meaning": "mở rộng (scale up/out)",
+          "example": "scale out with more nodes"
+        },
+        {
+          "word": "scalable",
+          "pos": "adj",
+          "meaning": "có thể mở rộng",
+          "example": "a scalable architecture"
+        }
+      ]
+    },
+    {
+      "word": "manageability",
+      "pos": "n",
+      "ipa": "/ˌmænɪdʒəˈbɪləti/",
+      "meaning": "khả năng quản trị, mức độ dễ quản lý",
+      "example": "Automatic Storage Management improves manageability.",
+      "example_vi": "ASM giúp việc quản trị dễ dàng hơn.",
+      "source": "Ch.1 - Introducing Oracle",
+      "added": "2026-10-20",
+      "family": [
+        {
+          "word": "manageable",
+          "pos": "adj",
+          "meaning": "dễ quản lý",
+          "example": "a manageable workload"
+        },
+        {
+          "word": "functionality",
+          "pos": "n",
+          "meaning": "chức năng",
+          "example": "new functionality in 11g"
+        }
+      ]
     }
   ]
 }
