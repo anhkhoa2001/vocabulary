@@ -1315,6 +1315,121 @@
           "note": "Nghĩa lệch khi là danh từ."
         }
       ]
+    },
+    {
+      "word": "de facto",
+      "pos": "adj",
+      "ipa": "/ˌdeɪ ˈfæktəʊ/",
+      "meaning": "trên thực tế, mặc nhiên (dù không được quy định chính thức)",
+      "example": "SQL became the de facto language for relational databases.",
+      "example_vi": "SQL trở thành ngôn ngữ mặc nhiên của các CSDL quan hệ.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "de facto standard",
+          "pos": "phrase",
+          "meaning": "tiêu chuẩn trên thực tế",
+          "example": "JSON is the de facto standard for REST APIs."
+        },
+        {
+          "word": "de jure",
+          "pos": "adj",
+          "ipa": "/ˌdeɪ ˈdʒʊəri/",
+          "meaning": "theo luật, chính thức",
+          "note": "Trái nghĩa với de facto."
+        }
+      ]
+    },
+    {
+      "word": "phenomenon",
+      "pos": "n",
+      "ipa": "/fəˈnɒmɪnən/",
+      "meaning": "hiện tượng (số nhiều: phenomena)",
+      "example": "Lock contention is a common phenomenon in busy OLTP systems.",
+      "example_vi": "Tranh chấp khóa là hiện tượng phổ biến trong các hệ OLTP bận rộn.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "phenomena",
+          "pos": "n",
+          "ipa": "/fəˈnɒmɪnə/",
+          "meaning": "các hiện tượng (số nhiều bất quy tắc)"
+        },
+        {
+          "word": "phenomenal",
+          "pos": "adj",
+          "ipa": "/fəˈnɒmɪnl/",
+          "meaning": "phi thường, cực kỳ ấn tượng",
+          "example": "phenomenal growth",
+          "note": "Nghĩa lệch: không phải \"thuộc về hiện tượng\"."
+        },
+        {
+          "word": "phenomenally",
+          "pos": "adv",
+          "ipa": "/fəˈnɒmɪnəli/",
+          "meaning": "cực kỳ",
+          "example": "phenomenally successful"
+        }
+      ]
+    },
+    {
+      "word": "formerly",
+      "pos": "adv",
+      "ipa": "/ˈfɔːməli/",
+      "meaning": "trước đây, trước kia (giờ không còn)",
+      "example": "Oracle Corporation, formerly Relational Software Inc., is based in Texas.",
+      "example_vi": "Oracle Corporation, trước đây là Relational Software Inc., đặt trụ sở ở Texas.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "former",
+          "pos": "adj",
+          "ipa": "/ˈfɔːmə(r)/",
+          "meaning": "cũ, trước đây",
+          "example": "a former IBM researcher"
+        },
+        {
+          "word": "the former",
+          "pos": "pron",
+          "meaning": "cái/người được nhắc trước (đi cặp với the latter)"
+        },
+        {
+          "word": "formally",
+          "pos": "adv",
+          "ipa": "/ˈfɔːməli/",
+          "meaning": "chính thức, trang trọng",
+          "note": "Dễ nhầm với formerly: phát âm gần giống, nghĩa khác hẳn."
+        }
+      ]
+    },
+    {
+      "word": "intersecting",
+      "pos": "adj",
+      "ipa": "/ˌɪntəˈsektɪŋ/",
+      "meaning": "giao nhau, đan chéo nhau",
+      "example": "The network model forms intersecting sets of data.",
+      "example_vi": "Mô hình mạng tạo thành các tập dữ liệu giao nhau.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "intersect",
+          "pos": "v",
+          "ipa": "/ˌɪntəˈsekt/",
+          "meaning": "giao nhau, cắt nhau",
+          "example": "The two sets intersect."
+        },
+        {
+          "word": "intersection",
+          "pos": "n",
+          "ipa": "/ˌɪntəˈsekʃn/",
+          "meaning": "phép giao; ngã tư",
+          "example": "SQL INTERSECT returns the intersection of two queries."
+        }
+      ]
     }
   ]
 }
