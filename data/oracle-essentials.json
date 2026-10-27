@@ -1430,6 +1430,96 @@
           "example": "SQL INTERSECT returns the intersection of two queries."
         }
       ]
+    },
+    {
+      "word": "meanwhile",
+      "pos": "adv",
+      "ipa": "/ˈmiːnwaɪl/",
+      "meaning": "trong khi đó, cùng lúc đó",
+      "example": "The DBA restored the backup. Meanwhile, users waited.",
+      "example_vi": "DBA khôi phục bản sao lưu. Trong khi đó, người dùng phải chờ.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "in the meantime",
+          "pos": "phrase",
+          "ipa": "/ˈmiːntaɪm/",
+          "meaning": "trong lúc chờ đợi",
+          "example": "In the meantime, use the old server."
+        }
+      ]
+    },
+    {
+      "word": "hierarchical",
+      "pos": "adj",
+      "ipa": "/ˌhaɪəˈrɑːkɪkl/",
+      "meaning": "phân cấp, theo thứ bậc",
+      "example": "A file system has a hierarchical structure of folders.",
+      "example_vi": "Hệ thống file có cấu trúc thư mục phân cấp.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "hierarchy",
+          "pos": "n",
+          "ipa": "/ˈhaɪərɑːki/",
+          "meaning": "hệ thống thứ bậc, sự phân cấp",
+          "example": "a hierarchy of records",
+          "note": "Trọng âm khác: HIerarchy vs hieRARchical."
+        },
+        {
+          "word": "hierarchically",
+          "pos": "adv",
+          "ipa": "/ˌhaɪəˈrɑːkɪkli/",
+          "meaning": "theo kiểu phân cấp"
+        },
+        {
+          "word": "hierarchical query",
+          "pos": "phrase",
+          "meaning": "truy vấn phân cấp (CONNECT BY trong Oracle)"
+        }
+      ]
+    },
+    {
+      "word": "competitor",
+      "pos": "n",
+      "ipa": "/kəmˈpetɪtə(r)/",
+      "meaning": "đối thủ cạnh tranh",
+      "example": "Oracle's main competitors include IBM DB2 and Microsoft SQL Server.",
+      "example_vi": "Các đối thủ chính của Oracle gồm IBM DB2 và Microsoft SQL Server.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "compete",
+          "pos": "v",
+          "ipa": "/kəmˈpiːt/",
+          "meaning": "cạnh tranh",
+          "example": "compete with IBM"
+        },
+        {
+          "word": "competition",
+          "pos": "n",
+          "ipa": "/ˌkɒmpəˈtɪʃn/",
+          "meaning": "sự cạnh tranh; cuộc thi"
+        },
+        {
+          "word": "competitive",
+          "pos": "adj",
+          "ipa": "/kəmˈpetətɪv/",
+          "meaning": "cạnh tranh, có sức cạnh tranh",
+          "example": "competitive price"
+        },
+        {
+          "word": "competent",
+          "pos": "adj",
+          "ipa": "/ˈkɒmpɪtənt/",
+          "meaning": "có năng lực, thạo việc",
+          "example": "a competent DBA",
+          "note": "Dễ nhầm với competitor, nghĩa khác hẳn."
+        }
+      ]
     }
   ]
 }
