@@ -11,7 +11,12 @@ Bot gửi **nghĩa tiếng Việt**, bạn gõ **từ tiếng Anh**, bot chấm 
 - Học thêm hoặc nghỉ: tin buổi sáng có nút **Học ngay** / **Bỏ qua hôm nay**, cuối bài có nút **Học thêm N từ** / **Đủ rồi**.
   - `/more` hoặc `/more 10`: thêm từ mới vào bài hôm nay (hết từ mới thì lấy các từ sắp đến hạn ôn).
   - `/skipday`: bỏ qua bài hôm nay, từ đến hạn dời sang mai. Gõ `/learn` nếu đổi ý.
-- Lệnh: `/learn`, `/hint`, `/skip`, `/more`, `/skipday`, `/today`, `/stats`, `/stop`.
+- Hai bộ từ, đổi bằng `/deck` (mặc định là bộ Oracle):
+  - `/deck oracle`: từ vựng sách Oracle Essentials (`data/oracle-essentials.json`).
+  - `/deck 3000`: 3000 từ phổ biến (`data/common-3000.json`, danh sách Oxford 3000, cấp độ A1 → B2, học lần lượt từ A1).
+  - `/deck 3000 b1`: chỉ học các từ cấp B1 trở lên (tương tự `a2`, `b2`).
+  - Mỗi bộ có lịch ôn riêng (KV `srs:<chat>` cho Oracle, `srs:<chat>:common` cho bộ 3000 từ), đổi qua lại không mất tiến độ. Tin buổi sáng và `/stats` theo bộ đang chọn.
+- Lệnh: `/learn`, `/deck`, `/hint`, `/skip`, `/more`, `/skipday`, `/today`, `/stats`, `/stop`.
 - Từ vựng đọc trực tiếp từ `data/*.json` trên GitHub, nên thêm từ vào JSON là bot dùng ngay (không cần deploy lại).
 
 ## Deploy lên Cloudflare Workers (miễn phí)
