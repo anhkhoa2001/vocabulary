@@ -1520,6 +1520,214 @@
           "note": "Dễ nhầm với competitor, nghĩa khác hẳn."
         }
       ]
+    },
+    {
+      "word": "predetermined",
+      "pos": "adj",
+      "ipa": "/ˌpriːdɪˈtɜːmɪnd/",
+      "meaning": "được định sẵn, xác định trước",
+      "example": "The job runs at a predetermined time every night.",
+      "example_vi": "Job chạy vào một giờ định sẵn mỗi đêm.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "determine",
+          "pos": "v",
+          "ipa": "/dɪˈtɜːmɪn/",
+          "meaning": "xác định, quyết định",
+          "example": "The optimizer determines the execution plan."
+        },
+        {
+          "word": "predetermine",
+          "pos": "v",
+          "ipa": "/ˌpriːdɪˈtɜːmɪn/",
+          "meaning": "định trước"
+        },
+        {
+          "word": "determination",
+          "pos": "n",
+          "ipa": "/dɪˌtɜːmɪˈneɪʃn/",
+          "meaning": "sự xác định; sự quyết tâm",
+          "note": "Nghĩa lệch: quyết tâm."
+        },
+        {
+          "word": "determined",
+          "pos": "adj",
+          "ipa": "/dɪˈtɜːmɪnd/",
+          "meaning": "quyết tâm",
+          "example": "a determined student"
+        }
+      ]
+    },
+    {
+      "word": "two-dimensional",
+      "pos": "adj",
+      "ipa": "/ˌtuː daɪˈmenʃənl/",
+      "meaning": "hai chiều",
+      "example": "A table is a two-dimensional structure of rows and columns.",
+      "example_vi": "Bảng là cấu trúc hai chiều gồm hàng và cột.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "dimension",
+          "pos": "n",
+          "ipa": "/daɪˈmenʃn/",
+          "meaning": "chiều, kích thước; khía cạnh",
+          "example": "a dimension table in a data warehouse"
+        },
+        {
+          "word": "multidimensional",
+          "pos": "adj",
+          "ipa": "/ˌmʌltidaɪˈmenʃənl/",
+          "meaning": "đa chiều",
+          "example": "multidimensional analysis (OLAP)"
+        }
+      ]
+    },
+    {
+      "word": "consist of",
+      "pos": "phrasal v",
+      "ipa": "/kənˈsɪst əv/",
+      "meaning": "gồm có, bao gồm (không dùng bị động)",
+      "example": "An Oracle database consists of data files, control files, and redo log files.",
+      "example_vi": "Một database Oracle gồm các data file, control file và redo log file.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "consistent",
+          "pos": "adj",
+          "ipa": "/kənˈsɪstənt/",
+          "meaning": "nhất quán",
+          "note": "Nghĩa lệch hẳn."
+        },
+        {
+          "word": "consistency",
+          "pos": "n",
+          "ipa": "/kənˈsɪstənsi/",
+          "meaning": "tính nhất quán",
+          "example": "read consistency; the C in ACID"
+        },
+        {
+          "word": "comprise",
+          "pos": "v",
+          "ipa": "/kəmˈpraɪz/",
+          "meaning": "bao gồm (không cần of)"
+        }
+      ]
+    },
+    {
+      "word": "unlike",
+      "pos": "prep",
+      "ipa": "/ʌnˈlaɪk/",
+      "meaning": "khác với, không giống",
+      "example": "Unlike the hierarchical approach, the relational model has no predetermined links.",
+      "example_vi": "Khác với cách tiếp cận phân cấp, mô hình quan hệ không có liên kết định sẵn.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "like",
+          "pos": "prep",
+          "ipa": "/laɪk/",
+          "meaning": "giống như"
+        },
+        {
+          "word": "unlikely",
+          "pos": "adj",
+          "ipa": "/ʌnˈlaɪkli/",
+          "meaning": "khó có khả năng xảy ra",
+          "note": "Nghĩa lệch: không liên quan đến 'khác với'."
+        }
+      ]
+    },
+    {
+      "word": "representation",
+      "pos": "n",
+      "ipa": "/ˌreprɪzenˈteɪʃn/",
+      "meaning": "cách biểu diễn, sự thể hiện",
+      "example": "Users don't need to understand the representation of data in storage.",
+      "example_vi": "Người dùng không cần hiểu cách dữ liệu được biểu diễn trong bộ lưu trữ.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "represent",
+          "pos": "v",
+          "ipa": "/ˌreprɪˈzent/",
+          "meaning": "biểu diễn; đại diện",
+          "example": "Data is represented as tree structures."
+        },
+        {
+          "word": "representative",
+          "pos": "n",
+          "ipa": "/ˌreprɪˈzentətɪv/",
+          "meaning": "người đại diện",
+          "example": "a sales representative"
+        }
+      ]
+    },
+    {
+      "word": "retrieve",
+      "pos": "v",
+      "ipa": "/rɪˈtriːv/",
+      "meaning": "truy xuất, lấy ra",
+      "example": "A SELECT statement retrieves rows from a table.",
+      "example_vi": "Câu lệnh SELECT truy xuất các hàng từ một bảng.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "retrieval",
+          "pos": "n",
+          "ipa": "/rɪˈtriːvl/",
+          "meaning": "sự truy xuất",
+          "example": "data retrieval"
+        }
+      ]
+    },
+    {
+      "word": "ad hoc",
+      "pos": "adj",
+      "ipa": "/ˌæd ˈhɒk/",
+      "meaning": "tùy biến, đột xuất, làm ngay khi cần (không lập sẵn)",
+      "example": "Analysts often run ad hoc queries against the data warehouse.",
+      "example_vi": "Các nhà phân tích thường chạy truy vấn tùy biến trên kho dữ liệu.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "ad hoc query",
+          "pos": "phrase",
+          "meaning": "truy vấn tùy biến, tự viết khi cần"
+        }
+      ]
+    },
+    {
+      "word": "popularize",
+      "pos": "v",
+      "ipa": "/ˈpɒpjələraɪz/",
+      "meaning": "phổ biến hóa, làm cho được ưa chuộng",
+      "example": "Ease of use helped popularize the relational model.",
+      "example_vi": "Sự dễ sử dụng đã giúp phổ biến mô hình quan hệ.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "popular",
+          "pos": "adj",
+          "ipa": "/ˈpɒpjələ(r)/",
+          "meaning": "phổ biến, được ưa chuộng"
+        },
+        {
+          "word": "popularity",
+          "pos": "n",
+          "ipa": "/ˌpɒpjuˈlærəti/",
+          "meaning": "sự phổ biến"
+        }
+      ]
     }
   ]
 }
