@@ -1181,6 +1181,140 @@
           "example": "new functionality in 11g"
         }
       ]
+    },
+    {
+      "word": "initially",
+      "pos": "adv",
+      "ipa": "/ɪˈnɪʃəli/",
+      "meaning": "ban đầu, lúc đầu",
+      "example": "Initially, the query ran slowly, but the optimizer fixed it.",
+      "example_vi": "Lúc đầu truy vấn chạy chậm, nhưng optimizer đã khắc phục.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "initial",
+          "pos": "adj",
+          "ipa": "/ɪˈnɪʃl/",
+          "meaning": "ban đầu",
+          "example": "the initial release"
+        },
+        {
+          "word": "initiate",
+          "pos": "v",
+          "ipa": "/ɪˈnɪʃieɪt/",
+          "meaning": "khởi xướng, bắt đầu",
+          "example": "initiate a backup"
+        },
+        {
+          "word": "initiative",
+          "pos": "n",
+          "ipa": "/ɪˈnɪʃətɪv/",
+          "meaning": "sáng kiến, sự chủ động",
+          "note": "Nghĩa lệch: không phải \"sự ban đầu\"."
+        }
+      ]
+    },
+    {
+      "word": "nevertheless",
+      "pos": "adv",
+      "ipa": "/ˌnevəðəˈles/",
+      "meaning": "tuy nhiên, dù vậy (trang trọng hơn but)",
+      "example": "The hardware was old. Nevertheless, the database ran well.",
+      "example_vi": "Phần cứng đã cũ. Dù vậy, database vẫn chạy tốt.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "nonetheless",
+          "pos": "adv",
+          "ipa": "/ˌnʌnðəˈles/",
+          "meaning": "dù vậy (đồng nghĩa)"
+        }
+      ]
+    },
+    {
+      "word": "curiously",
+      "pos": "adv",
+      "ipa": "/ˈkjʊəriəsli/",
+      "meaning": "điều lạ là, kỳ lạ thay",
+      "example": "Curiously, the bug only appears on Mondays.",
+      "example_vi": "Lạ thay, lỗi chỉ xuất hiện vào thứ Hai.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "curious",
+          "pos": "adj",
+          "ipa": "/ˈkjʊəriəs/",
+          "meaning": "tò mò; lạ lùng",
+          "example": "a curious result"
+        },
+        {
+          "word": "curiosity",
+          "pos": "n",
+          "ipa": "/ˌkjʊəriˈɒsəti/",
+          "meaning": "sự tò mò; vật hiếm lạ",
+          "example": "historical curiosities"
+        }
+      ]
+    },
+    {
+      "word": "embrace",
+      "pos": "v",
+      "ipa": "/ɪmˈbreɪs/",
+      "meaning": "đón nhận, chấp nhận và áp dụng (nghĩa gốc: ôm)",
+      "example": "Many companies embraced cloud computing after 2010.",
+      "example_vi": "Nhiều công ty đã đón nhận điện toán đám mây sau 2010.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "embrace",
+          "pos": "n",
+          "ipa": "/ɪmˈbreɪs/",
+          "meaning": "cái ôm; sự đón nhận",
+          "example": "the industry's embrace of SQL"
+        }
+      ]
+    },
+    {
+      "word": "commercial",
+      "pos": "adj",
+      "ipa": "/kəˈmɜːʃl/",
+      "meaning": "thương mại, để bán kiếm tiền",
+      "example": "Oracle V.2 was the first commercial relational database.",
+      "example_vi": "Oracle V.2 là database quan hệ thương mại đầu tiên.",
+      "source": "Ch.1 - The Evolution of the Relational Database",
+      "added": "2026-10-27",
+      "family": [
+        {
+          "word": "commerce",
+          "pos": "n",
+          "ipa": "/ˈkɒmɜːs/",
+          "meaning": "thương mại",
+          "example": "e-commerce"
+        },
+        {
+          "word": "commercially",
+          "pos": "adv",
+          "ipa": "/kəˈmɜːʃəli/",
+          "meaning": "về mặt thương mại",
+          "example": "commercially available"
+        },
+        {
+          "word": "commercialize",
+          "pos": "v",
+          "ipa": "/kəˈmɜːʃəlaɪz/",
+          "meaning": "thương mại hóa"
+        },
+        {
+          "word": "commercial",
+          "pos": "n",
+          "meaning": "quảng cáo trên TV/radio",
+          "note": "Nghĩa lệch khi là danh từ."
+        }
+      ]
     }
   ]
 }
