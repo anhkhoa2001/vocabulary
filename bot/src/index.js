@@ -6,12 +6,21 @@
 //   TELEGRAM_BOT_TOKEN  secret
 //   WEBHOOK_SECRET      secret, protects /webhook and /setup
 //   ALLOWED_CHAT_ID     secret, only this chat may use the bot
-//   WORDS_URLS          var, comma-separated raw JSON URLs
+//   WORDS_URLS          var, comma-separated raw JSON URLs for the Oracle deck
 //   DAILY_COUNT         var, max words per day (default 15)
 //   NEW_PER_DAY         var, max new words per day (default 5)
 
 const TZ_OFFSET_MS = 7 * 3600 * 1000; // Vietnam time
 const MAX_TRIES = 3;
+const RAW = "https://raw.githubusercontent.com/anhkhoa2001/vocabulary/main/data/";
+
+// Word decks the learner can switch between with /deck. Each deck keeps its own
+// review schedule; the Oracle deck keeps the original KV key so old progress stays.
+export const DECKS = {
+  oracle: { name: "Oracle Essentials", url: RAW + "oracle-essentials.json", srsKey: (c) => `srs:${c}` },
+  common: { name: "3000 từ phổ biến", url: RAW + "common-3000.json", srsKey: (c) => `srs:${c}:common` },
+};
+export const LEVELS = ["A1", "A2", "B1", "B2"];
 
 export default {
   async fetch(request, env) {
@@ -46,15 +55,17 @@ export default {
 
 async function morning(env) {
   if (!env.ALLOWED_CHAT_ID) return { ok: false, error: "ALLOWED_CHAT_ID is not set" };
-  const words = await loadWords(env);
+  const deck = await getDeck(env, env.ALLOWED_CHAT_ID);
+  const words = await loadWords(env, deck);
   if (!words.length) return { ok: false, error: "no words loaded, check WORDS_URLS" };
   const today = todayVN();
-  const srs = await getSrs(env, env.ALLOWED_CHAT_ID);
+  const srs = await getSrs(env, env.ALLOWED_CHAT_ID, deck);
   const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
   const total = newWords.length + reviews.length;
+  const name = `Bộ <b>${esc(deckLabel(deck))}</b>`;
   const text = total
-    ? `📚 Hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\nGõ /learn để bắt đầu.`
-    : `📚 Hôm nay không có từ nào đến hạn ôn. Muốn học thêm từ không?`;
+    ? `📚 ${name}: hôm nay có <b>${total} từ</b> cần học (${reviews.length} ôn tập, ${newWords.length} mới).\nGõ /learn để bắt đầu, /deck để đổi bộ từ.`
+    : `📚 ${name}: hôm nay không có từ nào đến hạn ôn. Muốn học thêm từ không?`;
   const buttons = total
     ? [["▶️ Học ngay", "/learn"], ["⏭ Bỏ qua hôm nay", "/skipday"]]
     : [[`➕ Học thêm ${newPerDay(env)} từ`, "/more"]];
@@ -76,6 +87,7 @@ async function setup(url, env) {
   await tg(env, "setMyCommands", {
     commands: [
       { command: "learn", description: "Bắt đầu / tiếp tục học từ hôm nay" },
+      { command: "deck", description: "Chọn bộ từ: Oracle hoặc 3000 từ phổ biến" },
       { command: "hint", description: "Gợi ý từ hiện tại" },
       { command: "skip", description: "Xem đáp án và qua từ tiếp" },
       { command: "today", description: "Danh sách từ hôm nay" },
@@ -90,16 +102,47 @@ async function setup(url, env) {
 
 // ---------- words ----------
 
-export async function loadWords(env) {
-  const urls = (env.WORDS_URLS || "").split(",").map((s) => s.trim()).filter(Boolean);
+// deck = { id: "oracle" | "common", minLevel: "A1".."B2" }. Each word gets a
+// unique `key` (the JSON "id" when present, since homographs share a spelling).
+export async function loadWords(env, deck) {
+  const urls = deck.id === "oracle" && env.WORDS_URLS
+    ? env.WORDS_URLS.split(",").map((s) => s.trim()).filter(Boolean)
+    : [DECKS[deck.id].url];
   const all = [];
   for (const u of urls) {
     const r = await fetch(u, { cf: { cacheTtl: 300 } });
     if (!r.ok) continue;
     const data = await r.json();
-    for (const w of data.words || []) all.push(w);
+    for (const w of data.words || []) all.push({ ...w, key: w.id || w.word });
   }
-  return all;
+  const min = LEVELS.indexOf(deck.minLevel);
+  return min > 0 ? all.filter((w) => !w.level || LEVELS.indexOf(w.level) >= min) : all;
+}
+
+async function getDeck(env, chatId) {
+  const raw = await env.VOCAB_KV.get(`deck:${chatId}`);
+  const d = raw ? JSON.parse(raw) : {};
+  return { id: DECKS[d.id] ? d.id : "oracle", minLevel: LEVELS.includes(d.minLevel) ? d.minLevel : "A1" };
+}
+
+async function saveDeck(env, chatId, deck) {
+  await env.VOCAB_KV.put(`deck:${chatId}`, JSON.stringify(deck));
+}
+
+export function deckLabel(deck) {
+  const name = DECKS[deck.id].name;
+  return deck.id === "common" && deck.minLevel !== "A1" ? `${name}, từ ${deck.minLevel}` : name;
+}
+
+// "/deck 3000 b1" -> { id: "common", minLevel: "B1" }; null when not understood.
+export function parseDeck(args) {
+  const parts = args.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!parts.length) return null;
+  const id = /^(oracle|o)$/.test(parts[0]) ? "oracle" : /^(3000|common|c)$/.test(parts[0]) ? "common" : null;
+  if (!id) return null;
+  const lv = (parts[1] || "a1").toUpperCase();
+  if (!LEVELS.includes(lv)) return null;
+  return { id, minLevel: id === "common" ? lv : "A1" };
 }
 
 export function todayVN(now = Date.now()) {
@@ -119,7 +162,7 @@ export function addDays(isoDate, n) {
 }
 
 // ---------- spaced repetition (SM-2) ----------
-// Each word the learner has seen gets a record in srs[word]:
+// Each word the learner has seen gets a record in srs[key] (key = id or word):
 //   { reps, interval, ease, due, lapses, seen, correct, history: [[date, grade], ...] }
 // Grades: 5 right first try, 4 one-letter typo, 3 right after 1 hint/miss,
 // 2 right after 2 hints/misses, 1 skipped or revealed. Below 3 counts as forgotten.
@@ -147,9 +190,9 @@ export function review(rec, grade, today) {
 // order they were added, at most NEW_PER_DAY new words and DAILY_COUNT total.
 export function pickToday(words, srs, today, total, maxNew) {
   const due = words
-    .filter((w) => srs[w.word] && srs[w.word].due <= today)
-    .sort((a, b) => srs[a.word].due.localeCompare(srs[b.word].due) || srs[a.word].ease - srs[b.word].ease);
-  const unseen = words.filter((w) => !srs[w.word]);
+    .filter((w) => srs[w.key] && srs[w.key].due <= today)
+    .sort((a, b) => srs[a.key].due.localeCompare(srs[b.key].due) || srs[a.key].ease - srs[b.key].ease);
+  const unseen = words.filter((w) => !srs[w.key]);
   const newWords = unseen.slice(0, Math.min(maxNew, total));
   const reviews = due.slice(0, Math.max(total - newWords.length, 0));
   return { newWords, reviews, dueTotal: due.length };
@@ -162,13 +205,13 @@ export function gradeFor(result, tries) {
   return 2;
 }
 
-async function getSrs(env, chatId) {
-  const raw = await env.VOCAB_KV.get(`srs:${chatId}`);
+async function getSrs(env, chatId, deck) {
+  const raw = await env.VOCAB_KV.get(DECKS[deck.id].srsKey(chatId));
   return raw ? JSON.parse(raw) : {};
 }
 
-async function saveSrs(env, chatId, srs) {
-  await env.VOCAB_KV.put(`srs:${chatId}`, JSON.stringify(srs));
+async function saveSrs(env, chatId, deck, srs) {
+  await env.VOCAB_KV.put(DECKS[deck.id].srsKey(chatId), JSON.stringify(srs));
 }
 
 // ---------- answer checking ----------
@@ -234,14 +277,14 @@ function esc(s) {
 }
 
 function promptText(w, idx, total) {
-  let s = `📝 <b>Từ ${idx}/${total}</b>\n➜ <b>${esc(w.meaning)}</b> (${esc(w.pos)})`;
+  let s = `📝 <b>Từ ${idx}/${total}</b>${w.level ? ` · ${esc(w.level)}` : ""}\n➜ <b>${esc(w.meaning)}</b> (${esc(w.pos)})`;
   if (w.example_vi) s += `\nVí dụ: <i>${esc(w.example_vi)}</i>`;
   s += `\n\nGõ từ tiếng Anh:`;
   return s;
 }
 
 export function card(w) {
-  const lines = [`<b>${esc(w.word)}</b> (${esc(w.pos)}) ${esc(w.ipa || "")}`, `➜ ${esc(w.meaning)}`];
+  const lines = [`<b>${esc(w.word)}</b> (${esc(w.pos)}) ${esc(w.ipa || "")}${w.level ? ` · ${esc(w.level)}` : ""}`, `➜ ${esc(w.meaning)}`];
   if (w.example) lines.push(`<i>${esc(w.example)}</i>`);
   const fam = w.family || [];
   if (fam.length) {
@@ -262,7 +305,7 @@ async function getSession(env, chatId) {
   if (!raw) return null;
   const s = JSON.parse(raw);
   // Sessions saved by an older version lack these fields; start a fresh one.
-  if (!Array.isArray(s.graded) || s.newCount === undefined) return null;
+  if (!Array.isArray(s.graded) || s.newCount === undefined || !s.deck) return null;
   return s;
 }
 
@@ -270,25 +313,25 @@ async function saveSession(env, chatId, s) {
   await env.VOCAB_KV.put(`session:${chatId}`, JSON.stringify(s), { expirationTtl: 3 * 86400 });
 }
 
-async function newSession(env, chatId, today) {
-  const words = await loadWords(env);
-  const srs = await getSrs(env, chatId);
+async function newSession(env, chatId, today, deck) {
+  const words = await loadWords(env, deck);
+  const srs = await getSrs(env, chatId, deck);
   const { newWords, reviews } = pickToday(words, srs, today, dailyCount(env), newPerDay(env));
   const list = [...reviews, ...newWords];
   return {
-    date: today, queue: list, total: list.length, done: 0, tries: 0, correct: 0,
+    deck, date: today, queue: list, total: list.length, done: 0, tries: 0, correct: 0,
     missed: [], retried: [], graded: [], newCount: newWords.length, reviewCount: reviews.length,
   };
 }
 
 // Record the first result of a word in this session into its SM-2 schedule.
 async function grade(env, chatId, s, w, g) {
-  if (s.graded.includes(w.word)) return null;
-  s.graded.push(w.word);
-  const srs = await getSrs(env, chatId);
-  srs[w.word] = review(srs[w.word], g, s.date);
-  await saveSrs(env, chatId, srs);
-  return srs[w.word];
+  if (s.graded.includes(w.key)) return null;
+  s.graded.push(w.key);
+  const srs = await getSrs(env, chatId, s.deck);
+  srs[w.key] = review(srs[w.key], g, s.date);
+  await saveSrs(env, chatId, s.deck, srs);
+  return srs[w.key];
 }
 
 function nextText(rec) {
@@ -296,8 +339,10 @@ function nextText(rec) {
   return rec.interval === 1 ? "\n🗓 Ôn lại: ngày mai" : `\n🗓 Ôn lại sau ${rec.interval} ngày`;
 }
 
-export function statsText(words, srs, today) {
-  const recs = Object.values(srs);
+export function statsText(words, srs, today, deck) {
+  // Only count records of words in the deck (a level filter can hide some).
+  const keys = new Set(words.map((w) => w.key));
+  const recs = Object.entries(srs).filter(([k]) => keys.has(k)).map(([, r]) => r);
   const seen = recs.length;
   const due = recs.filter((r) => r.due <= today).length;
   const mature = recs.filter((r) => r.interval >= 21).length;
@@ -305,11 +350,11 @@ export function statsText(words, srs, today) {
   const tries = recs.reduce((a, r) => a + r.seen, 0);
   const right = recs.reduce((a, r) => a + r.correct, 0);
   const hard = Object.entries(srs)
-    .filter(([, r]) => r.lapses > 0)
+    .filter(([k, r]) => keys.has(k) && r.lapses > 0)
     .sort((a, b) => b[1].lapses - a[1].lapses || a[1].ease - b[1].ease)
     .slice(0, 5)
-    .map(([k, r]) => `<b>${esc(k)}</b> (quên ${r.lapses} lần)`);
-  let t = `📊 <b>Tiến độ</b>\n` +
+    .map(([k, r]) => `<b>${esc(k.replace(/#\d+$/, ""))}</b> (quên ${r.lapses} lần)`);
+  let t = `📊 <b>Tiến độ: ${esc(deckLabel(deck))}</b>\n` +
     `Tổng số từ trong kho: ${words.length}\n` +
     `Chưa học: ${Math.max(words.length - seen, 0)}\n` +
     `Đang học: ${learning}\n` +
@@ -337,23 +382,51 @@ export async function handleUpdate(update, env) {
   const text = msg.text.trim();
   const cmd = text.startsWith("/") ? text.split(/[\s@]/)[0].toLowerCase() : null;
   const today = todayVN();
+  const deck = await getDeck(env, chatId);
   let s = await getSession(env, chatId);
+  // A session from another deck (or level) is dropped; that deck's progress is in its own SRS.
+  if (s && deckLabel(s.deck) !== deckLabel(deck)) s = null;
 
   if (cmd === "/start") {
     await send(env, chatId,
       "Chào bạn! Mỗi lượt mình gửi <b>nghĩa tiếng Việt</b>, bạn gõ <b>từ tiếng Anh</b>.\n" +
       "Từ nào bạn hay quên sẽ được nhắc lại dày hơn, từ đã thuộc sẽ giãn dần ra.\n\n" +
-      "/learn bắt đầu học\n/hint gợi ý\n/skip xem đáp án\n/more học thêm từ mới (vd: /more 10)\n/skipday bỏ qua bài hôm nay\n/today danh sách từ hôm nay\n/stats tiến độ\n/stop tạm dừng");
+      "/learn bắt đầu học\n/deck chọn bộ từ (Oracle hoặc 3000 từ phổ biến)\n/hint gợi ý\n/skip xem đáp án\n/more học thêm từ mới (vd: /more 10)\n/skipday bỏ qua bài hôm nay\n/today danh sách từ hôm nay\n/stats tiến độ\n/stop tạm dừng");
     return;
   }
 
   if (cmd === "/stats") {
-    await send(env, chatId, statsText(await loadWords(env), await getSrs(env, chatId), today));
+    await send(env, chatId, statsText(await loadWords(env, deck), await getSrs(env, chatId, deck), today, deck));
+    return;
+  }
+
+  if (cmd === "/deck") {
+    const args = text.split(/\s+/).slice(1).join(" ");
+    const picked = parseDeck(args);
+    if (!picked) {
+      await send(env, chatId,
+        `Bộ từ đang học: <b>${esc(deckLabel(deck))}</b>\n\n` +
+        "Chọn bộ khác bằng nút bên dưới, hoặc gõ:\n" +
+        "<code>/deck oracle</code> từ vựng sách Oracle\n" +
+        "<code>/deck 3000</code> 3000 từ phổ biến (A1 → B2)\n" +
+        "<code>/deck 3000 b1</code> chỉ học từ cấp B1 trở lên\n" +
+        "Mỗi bộ có lịch ôn riêng, đổi qua lại không mất tiến độ.",
+        [["📘 Oracle", "/deck oracle"], ["🔤 3000 từ", "/deck 3000"], ["🔤 3000 từ (B1+)", "/deck 3000 b1"]]);
+      return;
+    }
+    await saveDeck(env, chatId, picked);
+    await env.VOCAB_KV.delete(`session:${chatId}`);
+    const words = await loadWords(env, picked);
+    const srs = await getSrs(env, chatId, picked);
+    const learned = words.filter((w) => srs[w.key]).length;
+    await send(env, chatId,
+      `✅ Đã chuyển sang bộ <b>${esc(deckLabel(picked))}</b>: ${words.length} từ, đã học ${learned}.`,
+      [["▶️ Học ngay", "/learn"]]);
     return;
   }
 
   if (cmd === "/today") {
-    const fresh = s && s.date === today ? s : await newSession(env, chatId, today);
+    const fresh = s && s.date === today ? s : await newSession(env, chatId, today, deck);
     if (!fresh.queue.length) {
       await send(env, chatId, "Hôm nay không còn từ nào cần học. 🎉");
       return;
@@ -369,7 +442,7 @@ export async function handleUpdate(update, env) {
   }
 
   if (cmd === "/skipday") {
-    if (!s || s.date !== today) s = await newSession(env, chatId, today);
+    if (!s || s.date !== today) s = await newSession(env, chatId, today, deck);
     const left = s.queue.length;
     s.queue = [];
     s.skipped = true;
@@ -383,17 +456,17 @@ export async function handleUpdate(update, env) {
 
   if (cmd === "/more") {
     const n = Math.min(Math.max(parseInt(text.split(/\s+/)[1], 10) || newPerDay(env), 1), 50);
-    if (!s || s.date !== today) s = await newSession(env, chatId, today);
-    const words = await loadWords(env);
-    const srs = await getSrs(env, chatId);
-    const inSession = new Set([...s.queue.map((w) => w.word), ...s.graded]);
-    let extra = words.filter((w) => !srs[w.word] && !inSession.has(w.word)).slice(0, n);
+    if (!s || s.date !== today) s = await newSession(env, chatId, today, deck);
+    const words = await loadWords(env, deck);
+    const srs = await getSrs(env, chatId, deck);
+    const inSession = new Set([...s.queue.map((w) => w.key), ...s.graded]);
+    let extra = words.filter((w) => !srs[w.key] && !inSession.has(w.key)).slice(0, n);
     let label = "từ mới";
     if (!extra.length) {
       // No new words left: review the words whose next review is closest.
       extra = words
-        .filter((w) => srs[w.word] && !inSession.has(w.word))
-        .sort((a, b) => srs[a.word].due.localeCompare(srs[b.word].due))
+        .filter((w) => srs[w.key] && !inSession.has(w.key))
+        .sort((a, b) => srs[a.key].due.localeCompare(srs[b.key].due))
         .slice(0, n);
       label = "từ ôn sớm (kho đã hết từ mới)";
     }
@@ -415,7 +488,7 @@ export async function handleUpdate(update, env) {
 
   if (cmd === "/learn") {
     // A skipped day is rebuilt, so /learn after /skipday brings the words back.
-    if (!s || s.date !== today || s.skipped) s = await newSession(env, chatId, today);
+    if (!s || s.date !== today || s.skipped) s = await newSession(env, chatId, today, deck);
     if (!s.queue.length) {
       const t = s.skipped ? "Bạn đã bỏ qua bài hôm nay."
         : s.total ? "Hôm nay bạn học xong rồi. 🎉" : "Hôm nay không có từ nào đến hạn ôn. 🎉";
@@ -485,8 +558,8 @@ async function reveal(env, chatId, s, w, head) {
   const rec = await grade(env, chatId, s, w, 1);
   s.queue.shift();
   s.tries = 0;
-  if (!s.retried.includes(w.word)) {
-    s.retried.push(w.word);
+  if (!s.retried.includes(w.key)) {
+    s.retried.push(w.key);
     s.queue.push(w);
     s.total += 1;
   }
